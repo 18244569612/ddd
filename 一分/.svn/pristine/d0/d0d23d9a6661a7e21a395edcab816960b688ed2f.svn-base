@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+      <link rel="stylesheet" href="../css/header_white.css" />
+    <style>
+		#lists .changeList {
+			height:2.56rem;
+		}
+		#lists .changeList img{
+			max-width: 1.94rem!important;
+			height: 1.94rem!important;
+			line-height: 1.94rem!important;
+			border-radius:0!important;
+		}
+		#lists .changeList .name{
+			font-size: 0.48rem;
+			font-weight:700;
+			color:#333;
+		}
+		#lists .changeList .weight{
+			font-size: 0.39rem;
+			color: #333!important;
+			margin-top:0.12rem;
+		}
+		.aui-radio, .aui-checkbox {
+			width: 0.9rem;
+			height:0.9rem;
+		}
+		
+		.btn{
+			width:100%;
+			height:1.21rem;
+			line-height:1.21rem;
+			background-color: #1AAB3C;
+			color:#fff;
+			text-align:center;
+			font-size:0.42rem;
+			font-weight:700;
+			position:fixed;
+			bottom:0;
+		}
+		/*弹框*/
+		#MyDiv{
+			width:8.22rem;
+			text-align:center;
+			border-radius:10px;
+			position:relative;
+			position:fixed;
+			top:5.51rem;
+			left:0.9rem;
+			z-index:2;
+			display:none;
+		}
+		
+		#MyDiv img{
+			width:100%;
+			vertical-align: bottom;
+			box-shadow:0 0 10px #ccc;
+			border-radius: 10px 10px 0 0;
+		}	
+		
+		#MyDiv span{
+			display:inline-block;
+			width:8.22rem;
+			height:1.32rem;
+			background-color: #FF3700;
+			margin-top:-0.3rem;
+			color:#FFFFFF;
+			font-size:0.52rem;
+			font-weight:700;
+			line-height:1.32rem;
+			border-radius: 0 0 10px 10px;
+    		box-shadow: 0 0 10px #ccc;
+		} 
+		.black_overlay{
+			display: none;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index:1;
+			-moz-opacity: 0.5;
+			opacity:.50;
+			filter: alpha(opacity=50);
+		}
+			    
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">选择置换的粮食</div>
+   </header>
+   <div class="kongbai"></div>
+	
+	<div class="aui-content">
+		<ul class="aui-list-view" id="lists">
+			
+		</ul>
+	</div>
+	<!--确定弹框-->
+	<div id="fade" class="black_overlay">
+	</div>
+	<div id="MyDiv" class="white_content">
+		<img src="../image/img_success.png" alt="" />
+		<span onclick="CloseDiv('MyDiv','fade')">确定</span>
+	</div>	
+	
+	<div class="btn">确定</div>
+ </body>
+</html>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/aui-alert.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var userInfor = $api.getStorage('userInfor');
+		product();
+   		function product(){
+    		api.ajax({
+	            url:BASE_URL+'replace/getBarnList.html?user_id='+userInfor.id+'&pageIndex=0',
+	            method:'GET'
+            },function(ret,err){
+            	console.log(JSON.stringify(ret));
+            	if(ret && ret.stateCode == 1){
+            		var list = ret.resultList, str = "";
+            		for(var i = 0; i<list.length; i++){
+            			str+='<li class="aui-list-view-cell aui-img aui-counter-list changeList">'+
+								'<input pId='+list[i].product.id+' class="aui-pull-left aui-radio aui-radio-primary" type="radio" name="demo">'+
+								'<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">'+
+								'<div class="aui-img-body name">'+list[i].product.title+
+									'<div class="aui-counter-box">'+
+										'<div class="aui-pull-left aui-text-danger weight">数量：<span>'+list[i].product.uint_type+list[i].product.unit.unit_name+'</span></div>'+
+									'</div>'+
+								'</div>'+
+							'</li>'
+            		}
+            		
+            		$('#lists').html(str);
+            	}
+            	
+            });
+    	}
+    	
+    	$('.btn').click(function(){
+    		var lens = $('#lists input:checked').length;
+    		var productId =  $('#lists input:checked').attr('pId');
+    		if(lens == 1){
+    			var replace_id = api.pageParam.replace_id;
+    			var amount = api.pageParam.amount;
+    			api.ajax({
+	                url:BASE_URL+'replace/updateReplace.html?replace_id='+replace_id+'&res_product_id='+productId+'&res_user_id='+userInfor.id+'&res_amount='+amount,
+	                method:'GET'
+                },function(ret,err){
+                	if(ret && ret.stateCode ==1){
+                		ShowDiv('MyDiv','fade');
+                	}
+                });
+    		}
+    	})
+		
+		}
+   	function ShowDiv(show_div,bg_div){
+			document.getElementById(show_div).style.display='block';
+			document.getElementById(bg_div).style.display='block' ;
+			var bgdiv = document.getElementById(bg_div);
+			bgdiv.style.width = document.body.scrollWidth;
+			// bgdiv.style.height = $(document).height();
+			$("#"+bg_div).height($(document).height());
+		
+		};
+		//关闭弹出层
+		function CloseDiv(show_div,bg_div){
+			document.getElementById(show_div).style.display='none';
+			document.getElementById(bg_div).style.display='none';
+			closeW();
+		};	    
+       
+</script>
+</html>

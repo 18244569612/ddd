@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>订单结算</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+
+/*商品列表*/
+		#title{
+			height:1.22rem;
+			line-height:1.22rem;
+			font-size:0.42rem;
+			color:#1E1E1E;
+			background-color: #fff;
+			border-top:0.01rem solid #ddd;
+			padding-left:0.51rem;
+		}
+		#title img{
+			width:0.6rem;
+			vertical-align: middle;
+			margin-right:0.14rem;
+		}
+		#title span{
+			color:#1AAB3C;
+			font-weight:700;
+		}
+		#title span:last-child{
+			color:#333;
+			font-weight:100;
+			margin-right:0.28rem;
+			margin-left:1.3rem;
+		}
+		#product{
+			margin-bottom:0;
+		}
+		#product .aui-user-view{
+			margin-bottom:0;
+		}
+		#product .aui-user-view-cell .aui-img-object{
+			border-radius:0;
+			width:2.75rem;
+			max-width:2.75rem !important;
+			height:2.75rem !important;
+			max-height:2.75rem !important;
+		}	
+		#product .aui-user-view-cell p{
+			margin-top:0.35rem;
+			font-size:0.56rem;
+			font-weight:100;
+			color:#FE0100;
+		}	
+		#product .aui-user-view-cell p em{
+			float: right;
+			font-size:0.36rem;
+			font-weight:100;
+			color:#1e1e1e;
+			margin-top:0.18rem;
+		}
+/*备注*/	
+		#remarks div{
+			font-size:0.56rem;
+			font-weight:500;
+		}
+		#remarks .aui-list-view-cell{
+			padding:0;
+		}
+		#remarks .aui-list-view-cell div{
+			padding:0.28rem;
+		}
+		#remarks .aui-list-view-cell span{
+			font-size:0.42rem;
+			color:#999;
+		}
+		#remarks input{
+			min-height:0;
+			font-size:0.42rem;
+			float:right;
+			width:85%;
+			margin-top:0.18rem;
+			
+		}
+/*送货方式*/
+		#express{
+			width:100%;
+			position:fixed;
+			bottom:0;
+			z-index:1;
+			background-color: #fff;
+			text-align:center;
+			font-size:0.56rem;
+			display:none;
+		}
+		#express li{
+			font-weight:300;
+			color:#333;
+			border-top:0.01rem solid #ddd;
+			height:1.21rem;
+			line-height: 1.21rem;
+		}
+		#express li:first-child{
+			height:1.56rem;
+			line-height:1.56rem;
+			font-weight:700;
+			color:#1AAB3C;
+		}
+				
+/*底部*/
+		#footer{
+			background-color: #fff;
+			margin-bottom:0.28rem;
+			/*border-top:0.01rem solid #ddd;*/
+		}	
+		#footer li{
+			float:left;
+			font-size:0.45rem;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #fff;
+			margin-left:2.8rem;
+		}	
+		#footer li span{
+			color:#FE0100;
+			font-weight:700;
+			font-size:0.48rem;
+		}
+		#footer li em{
+			font-size:0.32rem;
+			
+		}
+		#footer li:first-child{
+			/*width:6.94rem;*/
+			padding-left:0.42rem;
+			/*margin-right:0.42rem;*/
+		}
+/*备注*/
+		#beizhu img{
+			width:0.61rem;
+			max-width:0.61rem;
+			height:0.61rem;
+			margin-top:0.4rem;
+			margin-left:0.53rem;
+		}	
+		#beizhu div{
+			font-size:0.36rem;
+			color:#333;
+		}
+		#beizhu span{
+			margin-left:2.5rem;
+			font-size:0.36rem;
+			color:#333;
+		}
+		#beizhu p{
+			font-size:0.42rem;
+			color:#000;
+			font-weight:300;
+		}	
+		#beizhu .aui-list-view:after{
+			border:0 none;
+		}
+		#beizhu ul li:first-child{
+			/*border-bottom:0.01rem solid #ddd;*/
+		}
+/*联系客服*/
+		#contact{
+			width:100%;
+			height:1.22rem;
+			line-height:1.22rem;
+			text-align:center;
+			background-color: #1AAB3C;
+			color:#fff;
+			font-size:0.48rem;
+			font-weight:700;
+		}		
+    	
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">订单结算</div>
+	</header>
+	<div class="kongbai"></div>	
+
+<!--商品列表-->
+	<div id="title">
+		<span>
+			<img src="../image/details_icon_truck.png" alt="" />待收货
+		</span>
+		<span>
+			订单号：123456789465585
+		</span>
+	</div>
+	<div class="aui-content" id="product">
+		<ul class="aui-user-view">
+			<li class="aui-user-view-cell aui-img">
+				<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+				<div class="aui-img-body">
+					<span>硒含量大于40微克保健养生富硒醋礼品包装</span>
+					<p class="aui-ellipsis-1">￥67.5<em>x3</em></p>
+				</div>
+			</li>
+		</ul>
+		<ul id="footer" class="clearfix">
+			<li>
+				合计金额:<span>￥75.5</span>
+				<em>包含运费:￥8.00元</em>
+			</li>
+		</ul>
+	</div>
+<!--备注-->
+	
+	<div class="aui-aui-content" id="beizhu">
+		<ul class="aui-list-view">
+			<li class="aui-list-view-cell aui-img">
+				<img class="aui-img-object aui-pull-left" src="../image/details_icon_address.png">
+				<div class="aui-img-body">
+					收货人：张三<span>12345678912</span>
+					<p class="aui-ellipsis-2">北京市通州区北京创业大厦</p>
+				</div>
+			</li>
+			<li class="aui-list-view-cell aui-img">
+				<img class="aui-img-object aui-pull-left" src="../image/details_icon_message-board.png">
+				<div class="aui-img-body">
+					买家留言
+					<p class="aui-ellipsis-2">发货前请检查</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+<!--联系客服-->
+	<div id="contact">联系客服</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		$('#logistics').click(function(){
+			$('#express').css('display', 'block');
+		});
+		$('#express li').click(function(){
+				var str = $(this).html();
+				$('#logistics span').html(str);
+				$('#express').css('display', 'none');
+		});
+		
+	};
+</script>
+</html>

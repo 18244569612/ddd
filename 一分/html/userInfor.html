@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>个人信息</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+    	#nav {
+    		border-bottom:0.01rem solid #DDDDDD;
+    	}
+/*头像 姓名*/
+		#pic{
+			background-color: #fff;
+			padding:0.57rem 0;
+			width:100%;
+			text-align:center;
+			font-size:0.53rem;
+			margin-bottom:0.28rem;
+			border-bottom:0.01rem solid #ddd;
+			position:relative;
+			overflow:hidden;
+		}
+		#pic .head{
+			width:1.94rem;
+			height:1.94rem;
+			border-radius:50%;
+		}
+		#pic p{
+			font-size:0.53rem;
+			color:#000000;
+			margin-top:0.36rem;
+		}
+		#pic .gender{
+			height:0.49rem;
+			margin-top:0.2rem;
+		}
+		#pic .fileInput{
+			position:absolute;
+			top:1.0rem;
+			left:3.0rem;
+			opacity: 0
+		}
+/*详细信息*/		
+    	#infor{
+    		margin:0;
+    		border-radius:0;
+    		background-color: #f2f2f2;
+    	}
+    	#infor:after{
+    		border-radius:0;
+    		border:0 none;
+    	}
+    	#infor .aui-input-row{
+    		background-color: #fff;
+    	}
+    	#infor input{
+    		height:1.24rem;
+    		min-height:1.24rem;
+    	}
+		.active{
+			background-color:#129ef0 !important;
+			border:1px solid #129ef0 !important
+		}
+		.active:active{
+			background-color:#129ef0 !important;
+			border:1px solid #129ef0 !important
+		}	
+		
+		.aui-input-row p span{
+			float:left;
+			margin:0.28rem 0.3rem 0.28rem 0;
+			
+			font-size:0.48rem;
+		}
+		#infor .span{
+			width:0.36rem;
+			height:0.36rem;
+			min-height:0.36rem;
+			float:left;
+			border:1px solid gray;
+			border-radius: 50%;
+			font-size:0;
+			outline:none;
+			margin:0.4rem 0.14rem 0.28rem 0;
+			
+		}
+		#confime{
+			width:100%;
+			text-align:center;
+			padding:0 0.48rem;
+			margin-top:0.56rem;
+		}
+		#confime div{
+			width:9.03rem;
+			padding:0;
+			background-color: #1AAB3C;
+			border:0 none;
+			font-size:0.47rem;
+			height:1.22rem;
+			line-height:1.22rem;
+			border-radius:0.65rem;	
+			color:#FF		
+		}
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">个人信息</div>
+	</header>
+	<div class="kongbai"></div>
+<!--头像 姓名-->	
+
+	<form id="forms" action='' method="post" enctype="multipart/form-data">
+		<div class="login" id="pic" onclick="" tapmode>
+			<img src="../image/my_img_head-portrait.png" id="userimg" alt="" class="head">
+			<input class="fileInput inputs" accept="image/*" type="file" name="userFile" id='userFile'>
+			<p>张三</p>
+			<img class="gender" src="../image/my_icon_man.png" alt="" />
+			 
+		</div>	
+	</form>	
+	
+<!--详细信息-->
+
+<div class="aui-card" id="infor">
+	<div class="aui-form">
+		<div class="aui-input-row">
+			<span class="aui-input-addon">昵称:</span>
+			<input type="text" class="aui-input nickName" placeholder="张三">
+		</div>
+		<!--<div class="aui-input-row">-->
+		<!--<span class="aui-input-addon">性别:</span>
+			<p class="nan"><input type="button" class="span male active" value="男"><span>男</span></p>
+			<p class="nv"><input type="button" class="span female" value="女"><span>女</span></p>
+		</div>-->
+		<!--<div class="aui-input-row">
+			<span class="aui-input-addon">所在地:</span>
+			<input type="email" id="addressView" class="aui-input" placeholder="您的地址">
+		</div>-->
+		<div class="aui-btn-row" id="confime">
+			<div class="aui-btn aui-btn-block aui-btn-success" onclick="return false;">完成</div>
+		</div>
+	</div>
+</div>
+
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/jquery-form.js"></script>
+<script type="text/javascript" src="../script/ajaxfileupload.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var name = api.pageParam.name
+		$('#pic p').html(name);
+		//三级联动
+//		var addressView = api.require('addressView');
+//		addressView.open({
+//	        file_addr: 'widget://script/address.txt', //数据源地址
+//	        selected_color: '#ff0000', //颜色
+//	        pro_id: 110000, //省id
+//	        city_id: 110100, //市id
+//	        dir_id: 110101 //区id
+//	    });
+//	    $api.addEvt($api.byId("addressView"), 'click', function() {
+//	        addressView.show({}, function(ret, err) {
+//	            if (ret.status) {
+//	                //alert(JSON.stringify(ret.data)); //返回值
+//	                var inner='';
+//	                for(var i=0;i<ret.data.length;i++){
+//	                	inner+=ret.data[i].name
+//	                }
+//	                $('#addressView').val(inner);
+//	            }
+//	        });
+//	    });
+//	  
+		var userInfor = $api.getStorage('userInfor');
+		$('.nickName').val(userInfor.nickName);
+		function save(){   
+			showLoading();
+//			var files = $('#files').val();
+//			alert(files)
+       		$.ajaxFileUpload({
+            type:"post",
+            url:BASE_URL+'user/updateUser.html',
+            fileElementId: 'userFile',
+            data : { //要传到后台的参数，没有可以不写  
+            	nickName :  $('.nickName').val(),
+            	userName : '15611813630',
+            },
+            dataType: 'json', //返回值类型
+            success:function(ret){
+            	showDefault();
+            	if(ret && ret.stateCode == 1){
+            		$('#userimg').attr('src', imgurls+ret.user.img_url);
+            		$('.nickName').val(ret.user.nickName);
+            		$('#pic p').html(ret.user.nickName);
+            		login();
+            	}
+            },
+            error:function(err){
+           		showDefault();
+            	alert(JSON.stringify(err));
+            }
+        	});
+		}
+	    function login(){
+	    	api.ajax({
+	            url:BASE_URL+'user/doLogin.html?userName='+userInfor.userName+'&password='+userInfor.password,
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            		$api.setStorage('userInfor',ret.user);
+            	}
+            });
+	    }
+	    $('#confime').click(function(){
+	    	save();
+//	    	var nickName = $('.nickName').val();
+//	    	console.log(BASE_URL+'user/updateUser?nickName='+nickName+'&userName='+userInfor.name)
+//	    	api.ajax({
+//	            url:BASE_URL+'user/updateUser.html?nickName='+nickName+'&userName='+userInfor.name,
+//	            method:'GET'
+//          },function(ret,err){
+//          	if(ret && ret.stateCode == 1){
+//          		console.log(JSON.stringify(ret));
+//          	}
+//          });
+	    	
+	    });
+	};
+</script>
+</html>

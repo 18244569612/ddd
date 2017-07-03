@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>富硒水</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+     body{
+	     height:100%;
+	     background-color: #fff;
+        }
+        
+		.list div{
+		  font-size:0.46rem;
+		  text-align:justify;
+		}
+		.list .price{
+		 color:#FF0000;
+         font-size:0.44rem;
+         font-weight: 700;
+          text-align:justify;
+		}
+		.aui-list-view.aui-grid-view{
+		 border-top:1px solid #ccc !important;
+		}
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">富硒水</div>
+	</header>
+	<div class="kongbai"></div>
+	
+	  <ul class="aui-list-view aui-grid-view" id="vinegarList">
+     	<!--<li class="aui-list-view-cell aui-img aui-col-xs-6" onclick="openNewWin('productDetails')">
+     		<img class="aui-img-object" src="../image/img.jpg">
+     		<div class="aui-img-body">
+     			精选富硒小米，源于晋北天然富硒米
+     			<p class="price">￥<span>22.5</span></p>
+     		</div>
+     	</li>-->
+     </ul>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		product()
+		function product(){
+			console.log(BASE_URL+'product/getOneProductInfo.html?productId=5')
+	 	api.ajax({
+	         url:BASE_URL+'product/getOneProductInfo.html?productId=5',
+	         method:'GET'
+         },function(ret,err){
+         	if(ret && ret.stateCode == 1){
+         		var list=ret.barns, str="";
+				for(var i=0;i<list.length;i++){
+					var img = '<img class="aui-img-object" src='+imgurls+list[i].product.img_url+' data='+list[i].product.img_url+'>'
+							if(list[i].product.img_url==''){
+							 img='<img class="aui-img-object"  src="../image/img.jpg" data='+list[i].product.img_url+'>'
+							 }
+					 str='<li class="aui-list-view-cell aui-img aui-col-xs-6 list" pid='+list[i].id+'>'+img+
+												'<div class="aui-img-body" name='+list[i].product.title+'>'+
+													list[i].product.title+'<br>'+
+												'<p class="price" price='+list[i].product.price+'>￥'+list[i].product.price+'</p>'+
+												'</div>'+
+											'</li>'
+							
+				  	$('#vinegarList').append(str);
+				}
+         	}
+         });
+	 
+		
+	  }
+	   $('#vinegarList').on('click', '.list', function(){
+		  	var name=$(this).find('.aui-img-body').attr('name');
+			var price=$(this).find('.price').attr('price');
+			var image=$(this).find('.aui-img-object').attr('data');
+			var id=$(this).attr('pid');
+			api.openWin({
+	            name: 'productDetails',
+	            url: 'productDetails.html',
+	            pageParam:{
+	            	name:name,
+	            	price:price,
+	            	image:image,
+	            	id:id
+	            }
+            });
+	  })
+	};
+</script>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的一分地</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+        #dynamic img{
+            width:1.94rem;
+            max-width:1.94rem;
+            height:1.94rem;
+            max-height:1.94rem;
+        }
+        .time{
+            float:right;
+            font-size:0.38rem;
+            margin-top:0.14rem;
+        }
+        .aui-img-body{
+            font-size:0.52rem;
+        }
+        .confirm{
+            display:inline-block;
+            border:1px solid #CCCCCC;
+            padding:0.07rem 0.14rem;
+            text-align:center;
+            border-radius:0.07rem;
+            margin-top:0.2rem;
+            font-size:0.33rem;
+        }
+        #newList{
+            overflow: hidden;
+        }
+       #newList li img{
+           max-width: 80px!important;
+           height:80px;
+       }
+        .selenium_amount_max{
+            font-size: 17px;
+            color: #a1a1a1;
+        }
+        .look{
+            width: 64px;
+            height: 31px;
+            color: #19ab3c;
+            font-size: 12px;
+            padding: 0;
+            background-color: white;
+            float: right;
+            margin-top: -10%;
+            border: 1px solid #19ab3c;
+        }
+       
+    </style>
+</head>
+<body>
+    <header id="nav">
+        <a class="aui-pull-left" onclick="closeW()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="title">我的一分地</div>
+    </header>
+    <div class="kongbai"></div>
+<!--地区详情-->
+    <div class="aui-aui-content">
+        <ul class="aui-list-view" id="newList">
+            <!--<li class="aui-list-view-cell aui-img">-->
+                <!--<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">-->
+                <!--<div class="aui-img-body  aui-ellipsis-1">-->
+                    <!--最新动态-->
+                  <!--<br>-->
+                    <!--<span class="selenium_amount_max">含硒量:</span><span class="selenium_amount_max">12</span>-->
+                    <!--<br>-->
+                    <!--<span class="selenium_amount_max">土地编号:</span><span class="selenium_amount_max">12</span>-->
+                    <!--<button class="look">去看看</button>-->
+                <!--</div>-->
+            <!--</li>-->
+            <!--<li class="aui-list-view-cell aui-img">
+                <img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+                <div class="aui-img-body  aui-ellipsis-1">
+                         最新动态
+                   <span class="time">2017-05-03</span><br>
+                    <p class="confirm">认证标签</p>
+                </div>
+            </li>
+            <li class="aui-list-view-cell aui-img">
+                <img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+                <div class="aui-img-body  aui-ellipsis-1">
+                         最新动态
+                   <span class="time">2017-05-03</span><br>
+                    <p class="confirm">认证标签</p>
+                </div>
+            </li>-->
+        </ul>
+     </div>
+</div>  
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function(){
+    var userInfor = $api.getStorage('userInfor');
+
+
+        OpenMypennyOfLandMessage(userInfor.id);
+           };
+
+
+    function OpenMypennyOfLandMessage(id){
+        api.ajax({
+            url: imgurls+'manage/field/getField?id='+id,
+            method: 'get',
+            timeout: 30,
+            dataType: 'json',
+            returnAll: false,
+        }, function (ret, err) {
+            var rowslen = ret.rows.length;
+            for(var i=0;i<=rowslen-1;i++){
+                    var str = '<li class="aui-list-view-cell aui-img lio" ><img class="aui-img-object aui-pull-left" src='+imgurls+ret.rows[i].img_url+ '><div class="aui-img-body  aui-ellipsis-1" id='+ret.rows[i].field_id+'>'+ret.rows[i].title+'<br><span class="selenium_amount_max">含硒量:</span><span class="selenium_amount_max">'+ret.rows[i].selenium_amount_max+'</span><br><span class="selenium_amount_max">土地编号:</span><span class="selenium_amount_max">'+ret.rows[i].location+'</span><button class="look" id='+ret.rows[i].field_id+'>去看看</button></div></li>';
+                $('#newList').append(str);
+            };
+            $('#newList').click(function(ev){
+                var target  = ev.target;
+                var tagname  = target.tagName.toUpperCase();
+                if(tagname=="DIV" || tagname == "BUTTON" ){
+                    var Bid= target.id;
+                    api.openWin({
+                        name: 'MyOfLand',
+                        url: 'MyOfLand.html',
+                        pageParam: {Bid: Bid},
+                    });
+            }
+
+
+            })
+        });
+    }
+
+
+</script>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>消息中心</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+    	#nav {
+    		border-bottom:0.01rem solid #DDDDDD;
+    	}
+    /*时间*/
+    	.content .time{
+    		/*width:2.50rem;*/
+    		height:0.56rem;
+    		line-height:0.56rem;
+    		font-size:0.36rem;
+    		background-color: #c6c6c6;
+    		color:#fff;
+    		padding:0 0.28rem;
+    		/*text-align:center;*/
+    		margin:0.28rem 0 0.28rem 3.2rem;
+    		display:inline-block;
+    		border-radius:0.56rem;
+    		font-weight:100;
+    	}
+    	/*内容*/
+    	.content{
+    		background-color: rgba(0,0,0,0);
+    	}
+    	.content div{
+    		font-size:0.48rem;
+    		font-weight:700;
+    	}
+    	.content .con{
+    		font-weight:300;
+    	}
+    	.content div span{
+    		font-weight:100;
+    	}
+    	.content .aui-img-object{
+    		width:1.94rem;
+    		max-width:1.94rem;
+    		height:1.94rem;
+    		max-height:1.94rem;
+    		/*margin-top:0.2rem;*/
+    		border:0.01rem solid #ddd;
+    		border-radius:0.2rem;
+    	}
+    	.content .con{
+    		margin-top:0.28rem;
+    	}
+    	.content .kuaidi{
+    		font-size:0.38rem;
+    		font-weight:100;
+    		color:#333;
+    	}
+    	.content .kuaidi p{
+    		font-size:0.34rem;
+    	}
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">消息中心</div>
+	</header>
+	<div class="kongbai"></div>
+<!--时间-->
+	<div id="info">
+		
+	<!--内容-->		
+		<div class="aui-card aui-noborder content">
+			<div class="time">05-18 14:20</div>
+			<ul class="aui-list-view">
+				<li class="aui-list-view-cell aui-img">
+					<img class="aui-img-object aui-pull-left" src="../image/aui/demo2.png">
+					<div class="msgTitle">交易提醒：</div>
+					<div class="aui-img-body con">
+						我的财富
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="time">14:20</div>
+	<!--内容-->		
+		<div class="aui-card aui-noborder content">
+			<ul class="aui-list-view">
+				<li class="aui-list-view-cell aui-img">
+					<div>订单已签收：</div>
+					<!--<img class="aui-img-object aui-pull-left" src="../image/aui/demo2.png">-->
+					<div class="aui-img-body con kuaidi">
+						西含量大于40微克保健养生富硒醋礼品包装
+						<p>订单号：123456789655845</p>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var user = $api.getStorage('userInfor');
+		if(!user){
+			openNewWin('user_login');
+		}else{
+			message();
+		}
+		function message(){
+			api.ajax({
+	            url:BASE_URL+'message/getMessageByAboutId.html?userid='+user.id+'&pageIndex=0',
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode){
+            		var list = ret.resultList, str="";
+            		for(var i = 0; i<list.length; i++){
+            			var time = list[i].addTime;
+            			time = time.substring(5);
+            			str+='<div class="aui-card aui-noborder content">'+
+								'<div class="time">'+time+'</div>'+
+								'<ul class="aui-list-view">'+
+									'<li class="aui-list-view-cell aui-img">'+
+									'<img class="aui-img-object aui-pull-left" src="../image/aui/demo2.png">'+
+										'<div class="msgTitle">'+list[i].messageType.title+'</div>'+
+										'<div class="aui-img-body con">'+list[i].content+
+										'</div>'+
+									'</li>'+
+								'</ul>'+
+							'</div>'
+            		}
+            		$('#info').html(str);
+            		$api.setStorage('msg',0);
+            	}
+            });
+		}
+		
+	};
+</script>
+</html>

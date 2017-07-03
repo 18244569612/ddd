@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>选地</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/alert.css"/>
+    <style>
+    html, body{
+    		height:100%;
+    	}
+    	/*header*/
+    	#nav{
+			height:2.08rem;
+			background-color:#fff;
+			/*text-align:center;*/
+			color:#FFFFFF;
+			font-size:0.5rem;
+			   
+		}
+		#nav .title{
+			padding-top:0.94rem;
+			color:#000;
+			width:100%;
+			text-align:center;
+			margin-left: -1.0rem;
+		}
+		.aui-pull-right img{
+			position: absolute;
+			width:0.63rem;
+			top:0.94rem;
+			right:0.53rem;
+		}
+		#nav .aui-pull-left{
+			margin-left:0.42rem;
+			margin-top:0.92rem;
+			font-size: 0.50rem !important;
+			font-weight:600;
+			color:#000
+		}
+		
+		#nav .aui-pull-left span{
+			font-size: 0.50rem !important;
+		}
+		/*infor*/
+		.inforList{
+			border-top: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+	        height: 2.34rem;
+	        padding: 0.28rem 0.58rem;
+	        background-color: #fff;
+		}
+		.inforList .title{
+			font-size:0.56rem;
+			font-weight:700;
+		}
+       .infor span{
+          font-size:0.44rem;
+        }
+       .infor .percent{
+        margin-right:0.58rem;
+       }
+        /*choose*/
+       .choose{
+        height:1.42rem;
+        font-size:0.56rem;
+        line-height:1.42rem;
+        text-align:center;
+        background-color: #fff;
+       }
+       .choose input{
+         width:0.89rem;
+         height:0.89rem;
+         margin-top:0.25rem;
+         margin-right: 0.14rem;
+         
+        
+        }
+        .choose .input1{
+          background-color:#fff
+         }
+        .choose .input2{
+            background-color:#18AC39
+         }
+        .choose .input3{
+             background-color:#FF3700
+         }
+        .aui-checkbox{
+        	float:initial;
+        }
+       #createtable{
+          background:url('../image/top_bj_img.jpg');
+          padding-top:0.31rem ;
+          padding-bottom:0.31rem;
+          min-height:480px;
+          padding-left: 0.78rem;
+       }
+       #createtable div{
+       		display: inline-block;
+		    width: 0.78rem;
+		    height: 0.78rem;
+		    background: rgba(0,0,0,0.3);
+		    font-size:0.36rem;
+		    margin: 0 0.14rem;
+       }
+       #createtable .checked{
+       	background-color: #FF3700;
+       }
+       #createtable .active{
+       	background-color: #1AAB3C !important;
+       }
+      #createtable .booked{
+       	background-color: green;
+       }
+        #createtable .choice{
+       	background-color: #fff;
+       }
+       table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #c0c0c0;
+            margin:0 auto;
+        }
+
+        th,td {
+            border: 1px solid #d0d0d0;
+            color: #404060;         
+            padding: 10px;
+        }
+
+        th {
+            background-color: #09c;
+            font: bold 16px "微软雅黑";
+            color: #fff;
+        }
+
+        td {
+            font: 14px "微软雅黑";
+            width:40px;
+            height:40px;/*
+            background-color: red;*/
+            border-radius:5px 5px;
+           border: 6px solid #48c50d;
+        }
+        tbody tr {
+            background-color: #f0f0f0;
+        }
+        tbody td:hover {
+            cursor: pointer;
+            background-color: red;
+        }
+        .chooseList{
+			border-bottom: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
+	        height: 2.64rem;
+	        padding: 0.28rem 0.58rem;
+	        background-color: #fff;
+	        margin-bottom: 1.34rem;
+		}
+		.chooseList .title{
+			font-size:0.56rem;
+			font-weight:700;
+		}
+       .chooseList span{
+		    font-size: 0.44rem;
+		    border: 1px solid #ccc;
+		    height: 0.71rem;
+		    line-height: 0.71rem;
+		    width: 1.91rem;
+		    text-align: center;
+        }
+        .chooseList .first{
+           margin-right:0.58rem;
+               margin-bottom: 1.91rem;
+       }
+       /*底部*/
+		#footer{
+			position:fixed;
+			bottom:0;
+			background-color: #fff;
+		}	
+		#footer li{
+			float:left;
+			font-size:0.45rem;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #fff;
+		}	
+		#footer li span{
+			color:#db4154;
+		}
+		#footer li em{
+			font-size:0.32rem;
+			
+		}
+		#footer li:first-child{
+			width:6.94rem;
+			padding-left:0.42rem;
+			/*margin-right:0.42rem;*/
+		}
+		#footer li:last-child{
+			float:right;
+			width:3.06rem;
+			text-align:center;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #FF3700;
+			color:#fff;
+			font-weight:700;
+		}
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">富硒大米区</div>
+	</header>
+	<!--详情-->
+	<li class="inforList">
+		<p class="title">富硒大米区</p>
+		<p class="infor"><span class="percent">含硒量：38.56%</span><span>平均租金：4845元/年</span></p>
+	</li>
+	<!--状态区-->
+   	<li class="choose">
+		<input class="aui-checkbox aui-checkbox-success aui-xs-4 input1" type="checkbox" disabled="disabled">可选
+		<input class="aui-checkbox aui-checkbox-success aui-xs-4 input2" type="checkbox" disabled="disabled">已选
+		<input class="aui-checkbox aui-checkbox-success aui-xs-4 input3" type="checkbox" disabled="disabled">已售
+   </li>
+   <!--选地区域-->
+   <div id="createtable">
+   
+   	
+   
+   </div> 
+   <!--展示区-->
+   <li class="chooseList">
+		<p class="title">已选硒地</p>
+		<span class="first">6排2号</span>
+	</li>
+	<!--底部-->
+  <div id="footer">
+		<ul>
+			<li>
+				合计金额:<span class="total">￥8453.00元/年</span>
+			</li>
+			<li id="Payfor">选好了</li>
+		</ul>
+	</div>		
+   
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/aui-alert.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript">
+  
+	apiready = function(){
+          getfield();
+          var user = $api.getStorage('userInfor');
+          
+  		function getfield(){
+//		console.log(BASE_URL+'field/getOnesField?pageSize='+200);
+    		api.ajax({
+	            url:BASE_URL+'field/getOnesField?pageSize='+200,
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            	 var list = ret.resultList, str = "";
+            			 for (i in list) { 
+            			  var status=list[i].status;
+            			  var selenium=list[i].selenium_amount_max*1000;
+            			  selenium = selenium.toFixed(2);
+            			  var location = list[i].location;
+            			  location = location.replace(/\s/g,'')
+//已售						
+            			  if(list[i].status == 1){
+            			  	$api.append($api.dom("#createtable"),'<div class="createtables checked" price='+list[i].price+' id='+list[i].id+'  status='+list[i].status+' max='+selenium+' ></div>');  
+            			  }else if(list[i].status == 4){
+            			    $api.append($api.dom("#createtable"),'<div class="createtables booked" location='+location+' price='+list[i].price+' id='+list[i].id+'  status='+list[i].status+' max='+selenium+' ></div>');                     
+                          } else{
+                          	$api.append($api.dom("#createtable"),'<div class="createtable choice" location='+location+' price='+list[i].price+' id='+list[i].id+'  status='+list[i].status+' max='+selenium+' ></div>');
+                          } 
+            		}
+            	}
+            });
+        };
+    
+        
+        $("#createtable").on('click','.createtable', function(){
+        	var status = $(this).attr('status');        	
+        	$(this).addClass('active').siblings().removeClass('active');
+        	$('.first').html($(this).attr('location'));
+        	$('.total').html('￥'+$(this).attr('price')+'元/年');
+        	$('.percent').html('含硒量：'+$(this).attr('max')+'%');
+        	$('.percent').siblings().html('平均租金：'+$(this).attr('price')+'元/年');
+        });
+        
+     
+     
+        $('#Payfor').click(function(){
+        	var lens = $('#createtable .createtable.active').length;
+        	 if(lens < 1){
+        		show('您还没有选地哦');
+        		
+        	}else{
+        		var id=$('#createtable .createtable.active').attr('id');
+        		//添加订单
+        		api.ajax({
+	                url:BASE_URL+'field/addFieldOrder.html?&field_id='+id+'&user_id='+user.id,
+	                method:'GET'
+                },function(ret,err){
+//                  	去支付
+                    if(ret && ret.stateCode == 1){
+                    	setTimeout(function(){
+                    		api.ajax({
+	                            url:BASE_URL+'field/getFieldOrder.html?field_order_id='+ret.field_order.id,
+	                            method:'GET'
+                            },function(rets,errs){
+                            	if(rets && rets.stateCode == 1){
+                            		if(ret.fieldOrder.status == 0){
+                            			api.ajax({
+	                                        url:BASE_URL+'field/deleteFieldOrder.html?field_order_id='+ret.field_order.id,
+	                                        method:'GET'
+                                        },function(ret,err){
+                                        	
+                                        });
+                            		}
+                            	}
+                            });
+                    	}, 1800000);
+			        	show(ret.stateMessage);
+		        	 	api.openWin({
+					        name:'landPayment',
+					        url:'landPayment.html',
+							pageParam:{
+								ret:ret
+							}
+                		})
+					};
+					  
+                 })
+        	 }
+        })
+     }
+</script>
+</html>

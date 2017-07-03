@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>订单结算</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <link rel="stylesheet" type="text/css" href="../css/alert.css" />
+    <style>
+/*收货地址*/
+		.address{
+			padding:0.43rem 0.56rem;
+			font-size:0.42rem;
+			font-weight:700;
+			border-top:0.01rem solid #ddd;
+			border-bottom:0.01rem solid #ddd;
+			background-color: #fff;
+			margin-bottom:0.28rem;
+		}
+		.address li p{
+			font-size:0.42rem;
+			font-weight:100;
+			
+		}
+		.address li:last-child{
+			float:right;
+			margin-top:-40px;
+		}
+		.address li:last-child img{
+			width:0.56rem;
+		}
+/*商品列表*/
+		.title{
+			height:0.97rem;
+			line-height:0.97rem;
+			font-size:0.42rem;
+			color:#1E1E1E;
+			background-color: #fff;
+			border-top:0.01rem solid #ddd;
+			padding-left:0.51rem;
+		}
+		#product .aui-user-view-cell .aui-img-object{
+			border-radius:0;
+			width:2.75rem;
+			max-width:2.75rem !important;
+			height:2.75rem !important;
+			max-height:2.75rem !important;
+		}	
+		#product .aui-user-view-cell p{
+			margin-top:0.35rem;
+			font-size:0.56rem;
+			font-weight:100;
+			color:#FE0100;
+		}	
+		#product .aui-user-view-cell p em{
+			float: right;
+			font-size:0.36rem;
+			font-weight:100;
+			color:#1e1e1e;
+			margin-top:0.18rem;
+		}
+/*备注*/	
+		#remarks div{
+			font-size:0.56rem;
+			font-weight:500;
+		}
+		#remarks .aui-list-view-cell{
+			padding:0;
+		}
+		#remarks .aui-list-view-cell div{
+			padding:0.28rem;
+		}
+		#remarks .aui-list-view-cell span{
+			font-size:0.42rem;
+			color:#999;
+		}
+		#remarks input{
+			min-height:0;
+			font-size:0.42rem;
+			float:right;
+			width:85%;
+			margin-top:0.18rem;
+			
+		}
+/*送货方式*/
+		#express{
+			width:100%;
+			position:fixed;
+			bottom:0;
+			z-index:1;
+			background-color: #fff;
+			text-align:center;
+			font-size:0.56rem;
+			display:none;
+		}
+		#express li{
+			font-weight:300;
+			color:#333;
+			border-top:0.01rem solid #ddd;
+			height:1.21rem;
+			line-height: 1.21rem;
+		}
+		#express li:first-child{
+			height:1.56rem;
+			line-height:1.56rem;
+			font-weight:700;
+			color:#1AAB3C;
+		}
+			
+/*我的地址*/	
+		#myAddress{
+			position:fixed;
+			top:0;
+			left:0;
+			width:100%;
+			z-index:100000000;
+			width:90%;
+			margin-left:0.52rem;
+			height:60%;
+			margin-top:2.3rem;
+			overflow:auto;
+			display:none;
+		}
+		#myAddress ul{
+			margin-bottom:0;
+		}
+		.black_overlay{
+			display: none;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index:1001000;
+			-moz-opacity: 0.8;
+			opacity:.50;
+			filter: alpha(opacity=80);
+		}
+/*底部*/
+		#footer{
+			position:fixed;
+			bottom:0;
+			background-color: #fff;
+		}	
+		#footer li{
+			float:left;
+			font-size:0.45rem;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #fff;
+		}	
+		#footer li span{
+			color:#db4154;
+		}
+		#footer li em{
+			font-size:0.32rem;
+			
+		}
+		#footer li:first-child{
+			width:6.94rem;
+			padding-left:0.42rem;
+			/*margin-right:0.42rem;*/
+		}
+		#footer li:last-child{
+			float:right;
+			width:3.06rem;
+			text-align:center;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #FF3700;
+			color:#fff;
+			font-weight:700;
+		}
+    	
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">订单结算</div>
+	</header>
+	<div class="kongbai"></div>
+<!--收货地址-->
+	<div class="address">
+		<ul>收货地址
+			<li>
+				<p telephone="" name="">张三，15555555555</p>
+				<p dId="">北京市朝阳区北京创业大厦B座</p>
+			</li>
+			<li>
+				<img src="../image/address_icon_edit.png" alt="" />
+			</li>
+		</ul>
+	</div>
+<!--商品列表-->
+	<div class="title">一分源官方旗舰店</div>
+	<div class="aui-content" id="product">
+		<ul class="aui-user-view">
+			<li class="aui-user-view-cell aui-img">
+				<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+				<div class="aui-img-body">
+					<span class="name">硒含量大于40微克保健养生富硒醋礼品包装</span>
+					<p class="aui-ellipsis-1 price">￥67.5<em class="counts">x3</em></p>
+				</div>
+			</li>
+		</ul>
+	</div>
+<!--备注-->
+	
+	<ul class="aui-list-view" id="remarks">
+		<li class="aui-list-view-cell" data-win="list_arrow">
+			<div class="aui-arrow-right" id="logistics">物流: <span>快递</span></div>
+		</li>
+		<li class="aui-list-view-cell" data-win="list_arrow">
+			<div class="">留言: <input type="text" id="message" placeholder="请输入留言"/></div>
+		</li>
+	</ul>
+<!--送货方式-->	
+	<ul id="express">
+		<li>选择物流方式：</li>
+		<li>快递</li>
+		<li>自提</li>
+	</ul>
+	<!--我的地址-->
+	<div id="fade" class="black_overlay"></div>
+	<div class="aui-content" id="myAddress">
+		<ul class="aui-user-view">
+			
+		</ul>
+	</div>
+<!--底部-->
+	<div id="footer">
+		<ul>
+			<li>
+				合计金额:<span class="total">￥75.5</span>
+				<em class="freight">包含运费:￥8.00元</em>
+			</li>
+			<li id="Payfor">立即付款</li>
+		</ul>
+	</div>		
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var id=api.pageParam.id; //商品id
+	    var deliver=parseInt($('.freight').text().substring(6,7)); //运费
+//	    var sum= price*counts+ deliver; //总金额
+		var sum = api.pageParam.sum;
+	    var carId=api.pageParam.carId; //购物车id
+	    var message=$('#message').val(); //  留言信息
+	    var arr = api.pageParam.arr;
+	    var str = "", car_ids = [];
+	    for(var i = 0; i < arr.length; i++){
+	    	str+='<li class="aui-user-view-cell aui-img">'+
+					'<img class="aui-img-object aui-pull-left" src='+arr[i].image+'>'+
+					'<div class="aui-img-body">'+
+						'<span class="name">'+arr[i].name+'</span>'+
+						'<p class="aui-ellipsis-1 price">￥'+arr[i].price+'<em class="counts">x'+arr[i].counts+'</em></p>'+
+					'</div>'+
+				'</li>';
+				car_ids.push(arr[i].carId);
+				
+	    }
+	    
+	    $('#product ul').html(str);
+	    var userInfor = $api.getStorage('userInfor');
+	    var name = userInfor.addressList[0].dispatch.userName;
+	    var tel = userInfor.addressList[0].dispatch.telephone;
+	    var ress = userInfor.addressList[0].address;
+	    $('.address p').eq(0).html(name+','+tel).siblings().html(ress);
+	    $('.address p').eq(0).attr('name', name);
+	    $('.address p').eq(0).attr('telephone', tel);
+	    $('.address p').eq(1).attr('dId', userInfor.addressList[0].id);
+		$('.address').click(function(){
+			ShowDiv('myAddress','fade');
+			api.ajax({
+	            url:BASE_URL+'user/doLogin.html?userName='+userInfor.userName+'&password='+userInfor.password,
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            		var ress = ret.user.addressList, str="";
+            		for(var i = 0; i<ress.length; i++){
+            			str+='<li class="aui-user-view-cell aui-img">'+
+								'<div class="aui-img-body">'+
+									'<span name='+ress[i].dispatch.userName+'>收货人:'+ress[i].dispatch.userName+'<em>'+ress[i].dispatch.telephone+'</em></span>'+
+									'<p class="aui-ellipsis-1" dId='+ress[i].dispatch_id+'>'+ress[i].address+'</p>'+
+								'</div>'+
+							'</li>'
+            		}
+            		$('#myAddress ul').html(str);
+            	}else{
+            		api.openWin({
+	                    name: 'user_login',
+	                    url: 'user_login.html'
+                    });
+            	}
+            });
+		})
+		$('#myAddress ul').on('click', 'li', function(){
+			var name = $(this).find('span').attr('name');
+			var telephone = $(this).find('em').html();
+			var address = $(this).find('p').html();
+			var dId = $(this).find('p').attr('dId');
+			$('.address p').eq(0).html(name+','+telephone);
+			$('.address p').eq(1).html(address);
+			$('.address p').eq(0).attr('name', name);
+			$('.address p').eq(0).attr('telephone', telephone);
+			$('.address p').eq(1).attr('dId', dId);
+			
+			CloseDiv('myAddress','fade');
+		})
+		
+		$('.total').html('￥'+sum);
+		$('#logistics').click(function(){
+			$('#express').css('display', 'block');
+		});
+		$('#express li').click(function(){
+			var str = $(this).html();
+			$('#logistics span').html(str);
+			$('#express').css('display', 'none');
+		});
+	  var dispatch_type=$('#logistics span').text();
+	  
+      $('#Payfor').click(function(){
+      	var name = $('.address p').eq(0).attr('name');
+      	var telephone = $('.address p').eq(0).attr('telephone');
+      	var address = $('.address p').eq(1).html();
+      	var dId = $('.address p').eq(1).attr('dId');
+		api.ajax({
+		url:BASE_URL+'order/addOrder.html?car_ids='+car_ids.join(',')+'&message='+message+'&userName='+name+'&address='+address+'&telephone='+telephone+'&dispatch_type='+dispatch_type+'&dispatch_id='+dId,
+	        method: 'get',
+	        dataType:'json'
+        },function(ret,err){
+        	showDefault();
+        	if(ret && ret.stateCode == 1){
+        	 	api.openWin({
+			        name:'payment',
+			        url:'payment.html',
+				        pageParam:{
+				          sum:sum,
+				          orderId:ret.order.id,//订单id
+				          numId:ret.order.order_id,//订单编号
+				          time:ret.order.addTime,
+				          userName : name, //收货人姓名
+				          address:address, //收货人地址
+				          telephone:telephone// 收货人电话
+				          }
+		        });
+        	}else if(ret.stateCode == 0){
+        	 	show('订单提交失败');
+        	}else if(ret.stateCode == -1){
+        		show(ret.stateMessage);
+        	}
+        });
+	});
+ };
+ 
+ function ShowDiv(show_div,bg_div){
+		document.getElementById(show_div).style.display='block';
+		document.getElementById(bg_div).style.display='block' ;
+		var bgdiv = document.getElementById(bg_div);
+		bgdiv.style.width = document.body.scrollWidth;
+		// bgdiv.style.height = $(document).height();
+		$("#"+bg_div).height($(document).height());
+	
+	};
+	//关闭弹出层
+	function CloseDiv(show_div,bg_div)
+	{
+	document.getElementById(show_div).style.display='none';
+	document.getElementById(bg_div).style.display='none';
+	};	
+</script>
+</html>

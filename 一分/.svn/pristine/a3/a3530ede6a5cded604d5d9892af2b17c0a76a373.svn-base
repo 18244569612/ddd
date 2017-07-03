@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/alert.css"/>
+    <style>
+    html, body{
+    		height:auto;
+    	}
+    	/*header*/
+    	#nav{
+			height:2.08rem;
+			background-color:#fff;
+			/*text-align:center;*/
+			color:#FFFFFF;
+			font-size:0.5rem;
+			   
+		}
+		#nav .title{
+			padding-top:0.94rem;
+			color:#000;
+			width:100%;
+			text-align:center;
+			margin-left: -1.0rem;
+		}
+		.aui-pull-right img{
+			position: absolute;
+			width:0.63rem;
+			top:0.94rem;
+			right:0.53rem;
+		}
+		#nav .aui-pull-left{
+			margin-left:0.42rem;
+			margin-top:0.92rem;
+			font-size: 0.50rem !important;
+			font-weight:600;
+			color:#000
+		}
+		
+		#nav .aui-pull-left span{
+			font-size: 0.50rem !important;
+		}
+      .success{
+		      font-size:0.63rem;
+		      color:#18ac39;
+		      font-weight:600;}
+      .orderList,.orderNo{
+             font-size:0.43rem;
+             margin-top:0.18rem;
+              }
+       .orderPrice,.orderAmount{
+            font-size:0.48rem;
+            margin-top:0.12rem;
+          } 
+       .orderAmount {
+           color:#ff3700;
+           font-size:0.63rem;
+           font-weight:700;
+         } 
+       .payFor {
+	       text-align:center;
+	       height:1.33rem;
+	       line-height:1.33rem;
+	       font-size:0.63rem;
+	       color:#333;} 
+	       /*去除ulbottom*/
+	   .aui-list-view{
+	       margin-bottom:0!important;
+	       font-size:0.53rem!important;
+	       color:#333;
+	   }
+	   .aui-list-view-cell img{
+	       vertical-align:middle;
+	       margin-right:0.21rem;}
+	   .aui-radio{
+		   width: 0.9rem;
+	       height: 0.9rem;
+	      }
+	.aui-radio:checked, .aui-radio.aui-checked, .aui-checkbox:checked, .aui-checkbox.aui-checked {
+		    background-color:  #1aab3c;
+		    border: solid 1px  #1aab3c;}  
+		    /*底部*/ 
+		#go{
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #FF3700;
+			color:#fff;
+			font-size:0.56rem;
+			font-weight:700;
+			text-align:center;
+			position:fixed;
+			bottom:0;
+			width:100%;
+		}   	   
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">订单支付</div>
+	</header>
+    <ul class="aui-list-view">
+    	<li class="aui-list-view-cell">
+    		<p class="success">订单提交成功</p>
+    		<p class="orderList">订单号：<span class="orderNo">123561246123165423</span></p>
+    		<p class="orderPrice">订单金额：<span class="orderAmount">75.5</span>元</p>
+    	</li>
+    </ul>
+    
+     <div class="aui-col-xs-12 payFor">
+               请选择支付方式
+     </div>
+     
+     
+     <ul class="aui-list-view aui-in" id="payList" >
+     	<li class="aui-list-view-cell">
+     		<img src="../image/payment_icon_wechat.png" alt="" />微信支付
+     		 <input class="aui-pull-right aui-radio aui-radio-primary fr" data="微信支付" type="radio" name="demo" checked>
+     	</li>
+     	<li class="aui-list-view-cell">
+     		<img src="../image/payment_icon_unionpay.png" alt="" />银行卡支付
+     		 <input class="aui-pull-right aui-radio aui-radio-primary fr"  data="银行卡支付" type="radio" name="demo" checked>
+     	</li>
+     
+     </ul>
+     <div id="go" onclick="openNewWin('')">
+		去支付
+	</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/aui-alert.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript">
+
+	apiready = function(){
+		var ret = api.pageParam.ret;
+    	$('.orderNo').html(ret.field_order.order_id);
+    	$('.orderAmount').html(ret.field_order.field.price);
+    $('#go').click(function(){
+		var vals=$('#payList input:checked').attr('data');
+		api.ajax({
+            url:BASE_URL+'field/doFieldPay.html?&field_order_id='+ret.field_order.id+'&amount='+ret.field_order.field.price+'&pay_type='+0,
+            method:'GET'
+        },function(ret,err){
+// 支付回调
+          api.ajax({
+	        url:BASE_URL+'pay/callBackFieldPay?pay_id='+ret.pay_id+'&pay_stamp='+ret.pay_stamp+'&pay_status='+ret.stateCode,
+	        method: 'get',
+	        dataType:'json'
+			},function(ret,err){});
+               
+         })
+        	if(ret && ret.stateCode == 1){
+        	 show(ret.stateMessage);
+        	 	api.openWin({
+			        name:'setLandName',
+			        url:'setLandName.html',
+			        pageParam:{
+			        	field:api.pageParam.ret,
+			        }
+		        });
+        	}else if(ret.stateCode == 0){
+        	 show('订单提交失败');
+        	  api.openWin({
+			        name:'payment_failed',
+			        url:'payment_failed.html',
+				     
+		        });
+        	}
+        });
+     
+   };
+</script>
+</html>

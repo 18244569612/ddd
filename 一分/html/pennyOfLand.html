@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>一分源硒地</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+    	#dynamic img{
+    		width:1.94rem;
+    		max-width:1.94rem;
+    		height:1.94rem;
+    		max-height:1.94rem;
+    	}
+        .time{
+            float:right;
+            font-size:0.38rem;
+            margin-top:0.14rem;
+        }
+        .aui-img-body{
+            font-size:0.52rem;
+        }
+        .confirm{
+	        display:inline-block;
+	        border:1px solid #CCCCCC;
+	        padding:0.07rem 0.14rem;
+	        text-align:center;
+	        border-radius:0.07rem;
+	        margin-top:0.2rem;
+	        font-size:0.33rem;
+        }
+       
+       
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">一分源硒地</div>
+	</header>
+	<div class="kongbai"></div>
+<!--地区详情-->
+	<div class="aui-aui-content">
+     	<ul class="aui-list-view" id="newList">
+     		<!--<li class="aui-list-view-cell aui-img">
+     			<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+     			<div class="aui-img-body  aui-ellipsis-1">
+     			         最新动态 
+     			   <span class="time">2017-05-03</span><br>
+     				<p class="confirm">认证标签</p>
+     			</div>
+     		</li>
+     		<li class="aui-list-view-cell aui-img">
+     			<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+     			<div class="aui-img-body  aui-ellipsis-1">
+     			         最新动态 
+     			   <span class="time">2017-05-03</span><br>
+     				<p class="confirm">认证标签</p>
+     			</div>
+     		</li>
+     		<li class="aui-list-view-cell aui-img">
+     			<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+     			<div class="aui-img-body  aui-ellipsis-1">
+     			         最新动态 
+     			   <span class="time">2017-05-03</span><br>
+     				<p class="confirm">认证标签</p>
+     			</div>
+     		</li>-->
+     	</ul>
+     </div>
+</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+	  var news=$api.getStorage('news')
+	  var list=news.resultList, str="";
+	  var len=news.resultList.length;
+	 for(var i=0;i<len;i++){
+				var imgurls='http://192.168.1.102:54321/selenium/';
+//				var img = '<img class="aui-img-object" src='+list[i].img_url+' data='+list[i].img_url+'>'
+//				if(list[i].img_url==''){
+//				 img='<img class="aui-img-object"  src="../image/img.jpg" data='+list[i].img_url+'>'
+//				 }
+				str+='<li class="aui-list-view-cell aui-img">'+
+				 '<img class="aui-img-object aui-pull-left"  src='+imgurls+list[i].img_url+' data='+list[i].img_url+'>'+
+							'<div class="aui-img-body  aui-ellipsis-1" id='+list[i].title+'>'+
+								list[i].title+'<br>'+
+								'<span class="time">'+list[i].addTime+'</span>'+
+								'<p class="confirm">认证标签</p>'+
+							'</div>'+
+						'</li>'
+				  }
+				  	$('#newList').append(str);
+	       };
+</script>
+</html>

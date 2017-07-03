@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+      <link rel="stylesheet" href="../css/header_white.css" />
+    <style>
+   	html, body {width: 100%;min-height: 100%;background: #f0f0f0;  font:500 15px/1 'Microsoft YaHei';}	
+   	    #helpList{
+   	     margin:0 !important;
+   	    }
+   		#helpList li{
+   			padding:0;
+   		}
+   	   #helpList .title{
+   	    height:1.22rem;
+   	    line-height:1.22rem;
+   	    padding:0 0.52rem!important;
+   	    border-bottom:0.05rem solid #ddd;
+   	   }
+   	   .aui-arrow-right:after{
+   	   	top:0.64rem;
+   	   }
+       #helpList span{
+        padding:0.31rem  0.51rem;
+        font-size:0.4rem;
+        color:#666;
+	    display:none;
+       }
+      .aui-arrow-right{
+       font-size:0.48rem;
+       color:#333;
+      }
+  
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">新人帮助</div>
+   </header>
+   <div class="kongbai"></div>
+   
+   <ul class="aui-list-view" id="helpList">
+	   	<li class="aui-list-view-cell" data-win="list_arrow">
+	   		<div class="aui-arrow-right title">收货地址怎么改？</div>
+	   			<span id="details">
+		   	                 登录界面里-收货地址——管理收货地址-更改
+		     	</span>
+	   	</li>
+		   
+	   	<li class="aui-list-view-cell" data-win="list_thumb">
+	   		<div class="aui-arrow-right title">什么是硒地？</div>
+		   		<span id="details">
+		   		有硒含量的土地
+		   		</span>
+	   	</li>
+	   		
+	   	<li class="aui-list-view-cell" data-win="list-image">
+	   		<div class="aui-arrow-right aui-ellipsis-1 title">
+	   			硒资源的重要性？
+	   		</div>
+		   		<span id="details">
+		   		
+		   		</span>
+	   	</li>
+	   		
+	   	<li class="aui-list-view-cell" data-win="list_arrow">
+	   		<div class="aui-arrow-right title">硒的作用？</div>
+		   		<span id="details">
+		   	        硒的作用比较宽泛，如下文详述的多个方面，主要是两个：1.组成体内抗氧化酶，能提到保护细胞膜免受氧化损伤，保持其通透性；2.硒-P蛋白具有螯合重金属等毒物，降低毒物毒性作用。
+		   		</span>
+	   	</li>
+	   		
+	   	<li class="aui-list-view-cell" data-win="list_thumb">
+	   		<div class="aui-arrow-right title">我们基地有什么优势？</div>
+		   		<span id="details">
+		   		收货地址怎么改收货地址怎么改收货地址怎么改收货地址怎么改收货地址怎么改收货地址怎么改收货地址怎么改收货地址怎么改收货地址怎么改收货地址怎么改收货地址怎么改
+		   		</span>
+	   	</li>
+   </ul>
+ </body>
+</html>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/aui-alert.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+   
+		 $('.aui-arrow-right').click(function(){
+		     $(this).next('span').slideToggle()
+          })
+		}
+       
+       
+</script>
+</html>

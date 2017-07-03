@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的粮仓</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <link rel="stylesheet" type="text/css" href="../css/alert.css" />
+    <style>
+		    body{
+		      height:100%;
+		      background-color: #F2F2F2F;
+		    }
+		    #tab{
+		    	border-top:0.01rem solid #ddd;
+		    }
+		  .aui-checkbox {
+		    width: 0.7rem;
+		    height: 0.7rem;
+		    border-radius: 1.1rem;
+		    }
+		  #shoppingList{
+		    background-color: #f2f2f2;
+		   }
+		  #shoppingList .picture{
+		    max-width: 1.94rem!important;
+		    height: 1.94rem!important;
+		    line-height: 1.94rem!important;
+		  } 
+		  #shoppingList .name{
+		   font-size: 0.4rem;
+           color: #222222;
+           font-family:'Microsoft YaHei'; 
+		  }
+
+		   #shoppingList .price{
+		    font-size:0.32rem;
+		    font-family:'Microsoft YaHei'; 
+		    margin-top:0.22rem;
+		    /*font-weight:800;*/
+		    color:#333 !important;
+		   }
+      		.aui-checkbox:checked{
+      			background-color: #1AAB3C;
+      			border:0.01rem solid #1AAB3C;
+      		}
+          
+         
+            #shoppingList .list{
+            margin-top:0.41rem;
+            background-color: #fff;
+            }
+            .last{
+            border-top:none;
+            }
+            /*底部*/
+		#footer{
+			position:fixed;
+			bottom:0;
+			background-color: #fff;
+		}	
+		
+		#allCheckbox{
+			height:1.22rem;
+			line-height:1.22rem;
+			font-size:0.48rem;
+			margin-bottom:0;
+		}
+		#allCheckbox ul{
+			margin-bottom:0;
+		}
+		#allCheckbox ul li{
+			padding: 0 0.28rem;
+		}
+		#allCheckbox ul li:after{
+			border:0 none;
+		}
+		
+		#allCheckbox input{
+			width:0.5rem;
+			height:0.5rem;
+			margin-top:0.28rem;
+		}
+		#allCheckbox input:checked{
+			background-color: #1AAB3C;
+			border:1px solid #1AAB3C;
+		}
+		#footer .btn li{
+			float:left;
+			font-size:0.45rem;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #fff;
+			text-align:center;
+			font-weight:700;
+		}	
+		#footer .btn li span{
+			color:#db4154;
+		}
+		#footer .btn li em{
+			font-size:0.32rem;
+			
+		}
+		#footer .btn li:first-child{
+			width:4.94rem;
+			background-color: #FED520;
+			
+		}
+		#footer .btn li:last-child{
+			float:right;
+			width:5.06rem;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #FF3700;
+			color:#fff;
+			
+			background-color: #1AAB3C;
+		}
+		
+.aui-list-view.aui-grid-view .aui-list-view-cell{
+         text-align:justify;
+        }
+        .aui-content{
+          margin-bottom:0!important;
+        }
+        .price{
+         color:#FF0000;
+         font-size:0.46rem;
+         font-weight: 700;
+        }
+        .icon{
+        float:right;
+        }
+         .icon img{
+	      height: 0.70rem;
+		 width: 0.70rem;
+		 margin-right:0.12rem;
+        }
+        #product{
+        	background-color: rgba(0,0,0,0);
+        }
+        #product li{
+        	padding:0;
+        	width:47%;
+        	margin:0.28rem 0 0 0.28rem;
+        	background-color: #fff;
+        }
+        .aui-checkbox{
+        width: 0.70rem;
+        height: 0.70rem;
+        }
+        
+        .name{
+        font-size:0.38rem;
+        
+        }
+    	.count{
+    	min-height:0.49rem!important;
+    	font-size:0.42rem!important;
+    	width:1.64rem!important;
+    	}
+    	.aui-list-view-cell  span{
+    	 font-size:0.52rem!important;
+    	 font-weight:700;
+    	}
+      .aui-list-view-cell:after{
+    	border:none!important;
+    	}
+     .aui-btn{
+      border-radius:0;
+      background-color:#FED520;
+     }
+     #cate{
+     	position:fixed;
+     	bottom:0;
+     	left:0;
+     	width:100%;
+     	z-index:1;
+     }
+     #cate ul{
+     	margin:0;
+     }
+     #cate .aui-list-view i.aui-iconfont{
+     	color:#222;
+     	position:absolute;
+     	top:-0.5rem;
+     	right:-0.42rem;
+     	font-size:0.56rem;
+     	font-weight:800;
+     }
+     #cate .aui-list-view .aui-img-object{
+     	width:2.22rem;
+    	height:2.22rem;
+     	max-height:2.22rem;
+     	max-width:2.22rem;
+     	margin-top:-1.5rem;
+     }
+     #cate .aui-list-view .aui-img, .aui-list-view .aui-img-body{
+     	overflow:visible;
+     	width: 90%;
+     }
+     #cate .aui-list-view:after{
+     	border:0 none;
+     }
+     .aui-counter-box{
+     	padding:0;
+     	
+     }
+     #cate span{
+     	padding:0;
+     	margin-left:0.44rem;
+     	
+     }
+     #cate .title{
+        font-size:0.38rem;
+        color:#999;
+     }
+     #cate i{
+       margin-right:0!important;
+     }
+     #cate #last{
+     	margin-top:0.62rem;
+     }
+     #change{
+     	margin-top:0.2rem;
+     }
+     /*弹窗样式*/
+        .black_overlay{
+		display: none;
+		position: absolute;
+		top: 0%;
+		left: 0%;
+		width: 100%;
+		height: 100%;
+		background-color: black;
+		z-index:1001;
+		-moz-opacity: 0.8;
+		opacity:.80;
+		filter: alpha(opacity=80);
+		}
+		.white_content {
+		display: none;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+		height: 5.42rem;
+		background-color: white;
+		z-index:1002;
+		}
+		.white_content_small {
+		display: none;
+		position: absolute;
+		top: 20%;
+		left: 30%;
+		width: 40%;
+		height: 50%;
+		border: 16px solid lightblue;
+		background-color: white;
+		z-index:1002;
+		overflow: auto;
+		}
+		#MyDiv img{
+		height:30px;
+		width:30px;
+		margin-top:1%;
+		margin-right:3%;}
+		
+		#cate .button{
+		height:1.22rem;
+		line-height:1.22rem;
+		padding:0;
+		font-size:0.42rem;
+		font-weight:700;
+		background-color: #ddd;
+			color:#666;
+		}
+		#cate .button:first-child{
+			background-color: #ddd;
+			color:#666;
+		}
+		#cate .button:last-child{
+			background-color: #1AAB3C;
+			color:#fff;
+		}
+/*记录*/
+		#record{
+			display:none;
+		}
+		#record li{
+			padding-top:0;
+			position:relative;
+		}
+		#record div{
+			height:1.72rem;
+		}
+		#record em{
+			position:absolute;
+			top:0.67rem;
+			font-size:0.48rem;
+			font-weight:800;
+			right:0.49rem;
+			color:#333;
+			
+		}		
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">我的粮仓</div>
+	</header>
+	<div class="kongbai"></div>
+  <!--切换-->
+  
+	<div class="aui-tab aui-tab-dark" id="tab">
+		<ul class="aui-tab-nav" id="">
+			<li class="active" value="stock">库存</li>
+			<li value="record">记录</li>
+			
+		</ul>
+	</div>
+  <!--粮仓-->
+	<div class="aui-content" id="stock">
+		<ul class="aui-list-view" id="shoppingList">
+		
+		</ul>
+	</div>
+	<!--记录-->
+	<div class="aui-content" id="record">
+		<ul class="aui-user-view">
+			
+			
+		</ul>
+	</div>
+<!--底部-->
+	<div id="fade" class="black_overlay"></div>
+	<div id="MyDiv" class="white_content">
+		<div class="aui-content" id="cate">
+			<ul class="aui-list-view">
+				<li class="aui-list-view-cell aui-img aui-counter-list">
+					<img class="aui-img-object aui-pull-left imgs" src="../image/aui/demo1.png">
+				    <div class="aui-img-body name ">
+						<p class="aui-ellipsis-1 title">精选富硒小米，源于晋北天然富硒米 </p>
+						<i class="aui-iconfont aui-icon-close" onclick="CloseDiv('MyDiv','fade')"></i>
+						
+				    </div>
+				</li>	
+				<li class="aui-list-view-cell aui-img aui-counter-list" id="last">
+					<span class="">数量</span>
+					<div class="aui-counter aui-pull-right" id="change">
+						<div class="aui-counter-minus aui-disabled"></div>
+						<input class="aui-counter-input count" id="count" type="text" value="1">
+						<div class="aui-counter-plus" onclick="document.getElementById('count').innerHTML++"></div>
+					</div>
+				</li>	
+				<div class="aui-btn aui-col-xs-6 button wait" onclick="return false;">等TA来换</div>
+				<div class="aui-btn aui-col-xs-6 button go" onclick="return false;">和TA去换</div>
+			</ul>
+		</div>
+	</div>
+	<div id="footer">
+		<ul class="btn">
+			<li id="change_btn">
+				置换
+			</li>
+			<li id="get_goods">提货</li>
+		</ul>
+	</div>		
+	 
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+ 
+	apiready = function(){
+		$('#tab li').click(function(){
+			$(this).addClass('active').siblings().removeClass('active');
+			var value = $(this).attr('value');
+			$('#'+value).css('display', 'block').siblings('.aui-content').css('display', 'none');
+			if(value == 'record'){
+				$('#footer').css('display', 'none');
+			}else{
+				$('#footer').css('display', 'block');
+			}
+		})
+    	var userInfor = $api.getStorage('userInfor');
+    	product();
+    	recordList();
+//  	库存
+    	function product(){
+    		api.ajax({
+	            url:BASE_URL+'replace/getBarnList.html?user_id='+userInfor.id+'&pageIndex=0',
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            		var list = ret.resultList, str = "";
+            		for(var i = 0; i<list.length; i++){
+            			str+='<li class="aui-list-view-cell aui-img aui-counter-list list" >'+
+					  			'<input pId='+list[i].product_id+' unitName='+list[i].product.unit.unit_name+' class="aui-pull-left aui-checkbox aui-checkbox-primary" class="numbers" type="checkbox" id="number">'+
+					  			'<img class="aui-img-object aui-pull-left picture" src="../image/aui/demo1.png">'+
+					  			'<div class="aui-img-body name" title='+list[i].product.title+'>'+list[i].product.title+
+					  				'<div class="aui-counter-box">'+
+					  					'<div class="aui-pull-left aui-text-danger price" amount='+list[i].product.uint_type+'>数量：'+list[i].product.uint_type+list[i].product.unit.unit_name+'</div>'+
+					  				'</div>'+
+					  			'</div>'+
+					  		'</li>'
+            		}
+            		
+            		$('#shoppingList').html(str);
+            	}
+            });
+    	}
+//  	记录
+    	function recordList(){
+    		api.ajax({
+	            url:BASE_URL+'field/getFieldRecord.html?userid='+userInfor.id+'&status=1',
+	            method:'GET'
+            },function(ret,err){
+            	if(ret){
+            		var str = "";
+            		for(var i = 0; i<ret.length; i++){
+            			
+            			str+='<li class="aui-user-view-cell aui-img">'+
+								'<div class="aui-img-body">'+
+									'<span>'+ret[i].type+'<em>'+ret[i].product_name+ret[i].amount+ret[i].product_unit+'</em></span>'+
+									'<p class="aui-ellipsis-1">'+ret[i].time+'</p>'+
+								'</div>'+
+							'</li>'
+            		}
+            		$('#record ul').html(str);
+            	}
+            });
+    	}
+//  	置换
+    	$('#change_btn').click(function(){
+			var length = $('#shoppingList input:checked').length;
+			if(length == 1){
+				ShowDiv('MyDiv','fade');
+				var title = $('#shoppingList input:checked').siblings('.name').attr('title');
+				var imgs = $('#shoppingList input:checked').siblings('.picture').attr('src');
+				$('#MyDiv .title').html(title);
+				$('#MyDiv .imgs').html(imgs);
+				var product_id = $('#shoppingList input:checked').attr('pId');
+				var product_amount = $('#change input').val();
+				var addTime = getTime();
+//				等TA来换
+				$('.wait').click(function(){
+					api.ajax({
+	                    url:BASE_URL+'replace/addReplace.html?user_id='+userInfor.id+'&product_id='+product_id+'&product_amount='+product_amount+'&status=0&addTime='+addTime,
+	                    method:'GET'
+                    },function(ret,err){
+                    	if(ret){
+                    		CloseDiv('MyDiv','fade');
+                    		show(ret.stateMessage);
+                    		
+                    	}
+                    });
+				})
+//				和TA去换
+				$('.go').click(function(){
+					api.openWin({
+	                    name: 'exchange',
+	                    url: 'exchange.html',
+	                    pageParam:{
+	                    	productId:product_id,
+	                    	amount:product_amount
+	                    }
+                    });
+				})
+			
+			}else {
+				show('请选择一种商品置换');
+			}
+			
+		});
+    	
+//  	提货
+		
+		$('#get_goods').click(function(){
+			var length = $('#shoppingList input:checked').length;
+			if(length == 1){
+				var amount = $('#shoppingList input:checked').siblings('.name').find('.price').attr('amount');
+				if(amount < 10){
+					show('不足10KG或10瓶不能提货喔！');
+				}else{
+					var title = $('#shoppingList input:checked').siblings('.name').attr('title');
+					var imgs = $('#shoppingList input:checked').siblings('.picture').attr('src');
+					var unitName = $('#shoppingList input:checked').attr('unitName');
+					var product_id = $('#shoppingList input:checked').attr('pId');
+					api.openWin({
+	                    name: 'getProduction',
+	                    url: 'getProduction.html',
+	                    pageParam:{
+	                    	title:title,
+	                    	imgs:imgs,
+	                    	unitName:unitName,	
+	                    	productId:product_id			
+	                    }
+                    });
+					
+				}
+			}else{
+				show('请选择一种商品提货');
+			}		
+		})
+    	
+    	
+	}
+	
+	
+	
+	
+	$('.aui-counter-minus').click(function(){
+		var _v =$('#count').val();
+		if(_v>1){
+			$('#count').val(--_v);
+		}
+	});
+	$('.aui-counter-plus').click(function(){	
+		var _v =$('#count').val();	
+		$('#count').val(++_v);
+	});
+    	
+	function ShowDiv(show_div,bg_div){
+		document.getElementById(show_div).style.display='block';
+		document.getElementById(bg_div).style.display='block' ;
+		var bgdiv = document.getElementById(bg_div);
+		bgdiv.style.width = document.body.scrollWidth;
+		$("#"+bg_div).height($(document).height());
+	};
+	//关闭弹出层
+	function CloseDiv(show_div,bg_div){
+		document.getElementById(show_div).style.display='none';
+		document.getElementById(bg_div).style.display='none';
+	};	
+	//关闭窗口
+	function closeW(){
+		api.closeWin({
+	       });
+	}		
+	
+       
+</script>
+</html>

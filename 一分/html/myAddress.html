@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>地址管理</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" href="../css/header_white.css" />
+    <link rel="stylesheet" href="../css/alert.css" />
+    <style>
+    	#nav{
+    		border:0.01rem solid #ccc;
+    	}
+    	.aui-user-view:after{
+    		border:0 none;
+    	}
+    	#address .aui-img-body span{
+    		font-weight:700;
+    	}
+    	#address .aui-img-body em{
+    		margin-right:1.8rem;
+    		font-size:0.4rem;
+    		color:#333;
+    		font-weight:700;
+    	}
+    	#address .aui-img-body p{
+    		font-size:0.4rem;
+    	}
+    	#address .default{
+    		width:0.69rem;
+    		height:0.69rem;
+    		background-color: #1AAB3C;
+    		border:0 none;
+    		margin-top:0.20rem;
+    		margin-right:0.28rem;
+    		
+    	}
+    	#address .noSelected{
+    		background-color: #ccc;
+    	}
+    	#address .aui-user-view{
+    		font-size:0.52rem;
+    		background-color: #f2f2f2;
+    	}
+    	#address .aui-user-view li{
+    		background-color: #fff;
+    		padding:15px 15px 0 15px;
+    		margin-bottom:0.28rem;
+    	}
+    	.edit{
+    		height:1.21rem;
+			line-height: 1.21rem;
+			/*padding:0 0.42rem;*/
+			font-size:0.4rem;
+			margin-top:0.1rem;
+			background-color: #fff;
+			border-top:0.01rem solid #ccc;
+			
+    	}
+    	.edit img{
+    		width:0.69rem;
+    		height:0.69rem;
+    		vertical-align: sub;
+    		margin-right:0.22rem;
+    		margin-left:7.3rem;
+    	}
+    	.edit .editAddress{
+    		margin-left:2.5rem;
+    	}
+/*底部*/ 
+		#newAddress{
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #FED520;
+			color:#000;
+			font-size:0.56rem;
+			font-weight:700;
+			text-align:center;
+			position:fixed;
+			bottom:0;
+			width:100%;
+		}   	
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">地址管理</div>
+	</header>
+	<div class="kongbai"></div>
+	<div class="aui-content" id="address">
+		<ul class="aui-user-view">
+			<li class="aui-user-view-cell aui-img">
+				<div class="aui-img-body">
+					<span>收货人:流浪男<em>12345678912</em></span>
+					<p class="aui-ellipsis-1">北京轻元素网络科技</p>
+				</div>
+				<div class="edit">
+					<!--<input class="aui-pull-left aui-radio aui-radio-primary default noSelected" type="radio" name="demo" disabled>设为默认-->
+					<!--<img src="../image/address_icon_edit.png" class="editAddress" alt="" />编辑-->
+					<img src="../image/address_icon_delete.png" alt="" />删除
+				</div>
+			</li>
+		</ul>
+	</div>
+<!--底部-->
+	<div id="newAddress" onclick="openNewWin('newAddress')">
+		新增收货地址
+	</div>	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var userInfor = $api.getStorage('userInfor');
+		isLogin();
+		function isLogin(){
+			api.ajax({
+	            url:BASE_URL+'user/doLogin.html?userName='+userInfor.userName+'&password='+userInfor.password,
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            		var ress = ret.user.addressList, str="";
+            		
+            		for(var i = 0; i<ress.length; i++){
+            			str+='<li class="aui-user-view-cell aui-img">'+
+								'<div class="aui-img-body">'+
+									'<span>收货人:'+ress[i].dispatch.userName+'<em>'+ress[i].dispatch.telephone+'</em></span>'+
+									'<p class="aui-ellipsis-1">'+ress[i].address+'</p>'+
+								'</div>'+
+								'<div class="edit">'+
+//									'<input class="aui-pull-left aui-radio aui-radio-primary default noSelected" type="radio" name="demo" disabled>设为默认'+
+									'<img src="../image/address_icon_delete.png" class="delete" addrid='+ress[i].id+' alt=""/>删除'+
+								'</div>'+
+							'</li>'
+            		}
+            		$('#address ul').html(str);
+            	}else{
+            		api.openWin({
+	                    name: 'user_login',
+	                    url: 'user_login.html'
+                    });
+            	}
+            });
+		}
+		
+		$('#address ul').on('click', 'li', function(){
+			api.closeToWin({
+				name:'balance'
+			})
+		})
+		
+		$('#address ul').on('click', '.delete', function(){
+			var addrid = $(this).attr('addrid');
+			$.ajax({
+				url:BASE_URL+'user/deleteUserAddress.html?addrid='+addrid,
+				method:'GET',
+				async:false,
+				success:function(ret){
+					var ret = JSON.parse(ret);
+					if(ret.stateCode == 1){
+            			show(ret.stateMessage);
+	            	}
+				},
+				error:function(){
+					show('删除失败');
+	            	return;
+				}	
+				
+			});
+			$(this).parent().parent().remove();
+		})
+	};
+</script>
+</html>

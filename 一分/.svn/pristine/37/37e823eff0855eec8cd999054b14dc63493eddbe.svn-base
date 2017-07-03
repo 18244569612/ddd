@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+ 	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+   <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>产品</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/alert.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <style>
+/*头部*/  body{
+            background-color: #f2f2f2;
+            height:100%;
+          }	
+		.kongbai{
+    		width:100%;
+    		height:2.08rem;
+    	}
+		#nav{
+			height:2.08rem;
+			background-color:#1aab3c;
+			text-align:center;
+			color:#FFFFFF;
+			font-size: 0.56rem;
+			position:fixed;
+			width:100%;
+			z-index:10000;  
+		}
+		#nav .title{
+			padding-top:0.94rem;
+		}
+		#nav .spot{
+			width:0.3rem;
+			height:0.3rem;
+			border-radius:50%;
+			background-color:red;
+			position:absolute;
+			top:0.8rem;
+			right:0.3rem;
+			display: none;
+		}
+		.aui-pull-right img{
+			position: absolute;
+			width:0.63rem;
+			top:0.94rem;
+			right:0.53rem;
+		}
+		
+/*分类*/	
+		.aui-list-view.aui-grid-view.pic3{
+			margin-bottom:0;
+			padding-bottom:0;
+		}
+		.pic3 li:last-child img:last-child{
+			margin-top:0.14rem;
+		}
+		.pic4 img{
+			width:19.17rem;
+			height:6.11rem;
+		}
+/*分类tab*/	
+		.tab {
+		    width: 100%;
+		    margin: 0.28rem auto;
+		}
+       
+		.tab-title{
+		    margin-bottom: 0.28rem;
+		    background-color: #fff;
+		    padding: 0 0.1rem 0 0.6rem;
+		}
+		.tab-title a{
+		    font-size: 0.44rem;
+    		color: #000;
+		    font-family: "微软雅黑";
+		    display: inline-block;
+		    padding:0 0.04rem;
+		    height: 0.97rem;
+		    line-height: 0.97rem;
+		   
+		}
+		.tab-cont{
+			height: 7.08rem;
+		    background-color: #fff;
+		}
+		.tab-title a:hover {
+         border-bottom:1px solid #ccc;
+		}
+/*瀑布流*/		
+		.aui-list-view.aui-grid-view .aui-list-view-cell{
+         text-align:justify;
+        }
+        .price{
+         color:#FF0000;
+         font-size:0.44rem;
+         font-weight: 700;
+        }
+        .list img{
+          height:5.42rem;
+        }
+        .list .aui-img-body{
+          font-size:0.42rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="nav">
+		<div class="title">产品</div>
+		<a class="aui-pull-right" onclick="openNewWin('messageCenter')">
+			<img src="../image/nav_btn_news.png" alt="" />
+			<span class="spot"></span>
+		</a>
+	</div>
+	<div class="kongbai"></div>
+<!--分类图片-->	
+	<ul class="aui-list-view aui-grid-view pic3">
+		<li class="aui-list-view-cell aui-img aui-col-xs-6">
+			<img class="aui-img-object" src="../image/product_img1.png" onclick="openNewWin('newproductDetails')">
+		</li>
+		<li class="aui-list-view-cell aui-img aui-col-xs-6">
+			<img class="aui-img-object" src="../image/product_img2.png" onclick="openNewWin('hotproductDetails')">
+			<img class="aui-img-object" src="../image/product_img3.png" onclick="openNewWin('exchange')">
+		</li>
+		
+	</ul>
+	<ul class="aui-list-view aui-grid-view pic4">
+		<li class="aui-list-view-cell aui-img aui-col-xs-12">
+			<img class="aui-img-object" src="../image/product_img4.png" onclick="openNewWin('getUnionInfo')">
+		</li>
+	</ul>
+<!--分类tab-->	
+  <!-- <div class="aui-tab aui-tab-dark">
+		<ul class="aui-tab-nav" id="footer">
+			<li class="active" value="0">富硒米</li>
+			<li value="1">富硒醋</li>
+			<li value="2">富硒杂粮</li>
+			<li value="3">富硒水</li>
+			<li value="4">富硒伴侣</li>
+		</ul>
+	</div>-->
+<!--瀑布流-->	
+	
+   <!-- <ul class="aui-list-view aui-grid-view productList" id="riceList">
+	    <li class="aui-list-view-cell aui-img aui-col-xs-6" onclick="openNewWin('productDetails')">
+     	  <img class="aui-img-object" src="../image/img.jpg">
+     		<div class="aui-img-body">
+     		精选富硒小米，源于晋北天然富硒米
+     		<p class="price">￥22.5</p>
+     		</div>
+     	</li>
+	 </ul>-->
+	
+<div class="tab" js-tab="1" >
+	<div class="tab-title">
+	  <a href="javascript:;" class="item item-cur" value=1>富硒米</a>
+	  <a href="javascript:;" class="item" value=2>富硒醋</a>
+	  <a href="javascript:;" class="item" value=5>富硒水</a>
+	  <a href="javascript:;" class="item" value=13>富硒苹果</a>
+	  <a href="javascript:;" class="item" value=21>富硒梨</a>
+	</div>
+    <div class="tab-cont">
+		  <ul class="tab-cont__wrap">
+			<li class="item" id="riceList">
+				<div class="aui-list-view-cell aui-img aui-col-xs-6 list" pId='+id+' name='+list[i].title+' price='+list[i].price+' image='+list[i].img_url+'>
+					<img class="aui-img-object"  src="../image/img.jpg" data='+list[i].img_url+'>
+					<div class="aui-img-body">
+						list[i].title+'<br>
+					<p class="price">￥'+list[i].price+'</p>
+					</div>
+				</div>
+				<div class="aui-list-view-cell aui-img aui-col-xs-6 list" pId='+id+' name='+list[i].title+' price='+list[i].price+' image='+list[i].img_url+'>
+					<img class="aui-img-object"  src="../image/img.jpg" data='+list[i].img_url+'>
+					<div class="aui-img-body">
+						list[i].title+'<br>
+					<p class="price">￥'+list[i].price+'</p>
+					</div>
+				</div>
+			</li>
+			<li class="item" id="vinegarList"></li>
+			<li class="item"></li>
+			<li class="item"></li>
+			<li class="item"></li>
+		  </ul>
+	</div>
+</div>
+
+</body>
+	<script type="text/javascript" src="../script/api.js"></script>
+	<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+	<script type="text/javascript" src="../script/aui-tab.js"></script>
+	<script type="text/javascript" src="../script/index.js"></script>
+	<script type="text/javascript" src="../script/common.js"></script>
+	<script type="text/javascript" src="../script/tab.js"></script>
+	<script type="text/javascript" src="../script/alert.js"></script>
+	
+	<script type="text/javascript">
+		apiready = function(){
+			var msg = $api.getStorage('msg');
+			if(msg>0){
+				$('.spot').css('display', 'none');
+			}
+			 //tab切换	 
+			$('.tab-title a').click(function(){
+				$(this).addClass('item-cur').siblings().removeClass('item-cur');
+				var id = $(this).attr('value');
+				riceList(id);
+			})
+		   riceList(1);
+		function riceList(id){
+	    var index=0;
+			api.ajax({
+			    url: BASE_URL+'product/getOneProductInfo.html?productId='+id,
+			    method: 'get',		
+			},function(ret, err){
+				if(ret&&ret.stateCode==1){
+					var list=ret.products, str="";
+					var len=ret.products.length;
+					for(var i=0;i<len;i++){
+						var id=list[i].id;
+					    var img = '<img class="aui-img-object" src='+imgurls+list[i].img_url+' data='+list[i].img_url+'>'
+						if(list[i].img_url==''){
+						   img='<img class="aui-img-object"  src="../image/img.jpg" data='+list[i].img_url+'>'
+						 }
+						str+='<div class="aui-list-view-cell aui-img aui-col-xs-6 list" pId='+id+' name='+list[i].title+' price='+list[i].price+' image='+list[i].img_url+'>'+img+
+									'<div class="aui-img-body">'+
+										list[i].title+'<br>'+
+									'<p class="price">￥'+list[i].price+'</p>'+
+									'</div>'+
+								'</div>'
+					  }
+					  $('#riceList').html(str);
+				}else{
+//	        		alert('暂时没有更多推荐');
+			   }
+			});
+	   };
+	$('.item').on('click','.aui-list-view-cell',function(){
+	  var name=$(this).attr('name');
+	  var price=$(this).attr('price');
+	  var image=$(this).attr('image');
+	  var id=$(this).attr('pid');
+	    api.openWin({
+		        name:'productDetails',
+		        url:'productDetails.html',
+		        pageParam:{
+				        name:name,
+				        price:price,
+				        image:imgurls+image,
+				        id:id
+		          }
+	        });
+	    });
+	 
+   
+	 
+	   };
+	</script>
+</html>

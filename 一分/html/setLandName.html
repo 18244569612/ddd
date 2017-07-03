@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的硒地</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+    	body{
+    		height:100%;
+    	}
+	/*图片*/
+		.banner{
+			background-image:url('../image/sold_img.jpg');
+			width:100%;
+			height:15.70rem;
+			background-size:contain;
+		}
+		.banner li{
+		   width:8.3rem;
+		   height:1.08rem;
+		   line-height:1.08rem;
+		   font-size:0.42rem;
+		   background-color: #fff;
+		   padding:0 0.63rem;
+		   position:absolute;
+		   left:0.76rem;
+		   border-radius:1.2rem;
+		}
+        .banner li:first-child{
+        	top:10.50rem;
+        	color:#999;
+        }
+        .banner li:nth-child(2){
+        	top:12.0rem;
+        	
+        }
+        .banner li:nth-child(2) input{
+        	display:inline-block;
+        	width:5.0rem;
+        	float:right;
+        	font-size:0.42rem;
+        	min-height:0;
+        	margin-top:-0.8rem;
+        }
+        .banner li:last-child{
+        	top:14.1rem;
+        	background-color: rgba(0,0,0,0);
+        	text-align:center;
+        	color:#d03e3a;
+        }
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">我的硒地</div>
+	</header>
+	<div class="kongbai"></div>
+<!--图片-->	
+	<div class="banner">
+		<ul>
+			<li>
+				<span id="fieldNumber">土地编号：c6-2/3</span>
+			</li>
+			<li>
+				<span>土地地名：<input type="text" id="nickName" placeholder="张三的地"/></span>
+			</li>
+			<li>
+				<span id="enter">进入我的地盘</span>
+			</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+     var field= $api.getStorage('field');
+      $('#fieldNumber').html("土地编号："+field.field_order.field.location);
+	  var user = $api.getStorage('userInfor');
+	  $('#nickName').val()
+	  
+	    $('#enter').click(function(){
+		     var nickName=$('#nickName').val();
+		     if(!nickName){
+		     	if(user.nickName){
+		     		nickName = user.nickName+'的一分地';
+		     	}else{
+		     		nickName = user.userName+'的一分地';
+		     	}
+		     	
+		     }
+	          api.openWin({
+		        name:'myLand',
+		        url:'myLand.html',
+		        pageParam:{
+			          nickName:nickName
+		             }
+				 });
+	         })
+	      };
+</script>
+</html>

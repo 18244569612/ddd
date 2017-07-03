@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>搭配推荐</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <style>
+    html, body{
+    		height:auto;
+    	}
+    	/*header*/
+    	#nav{
+			height:2.08rem;
+			background-color:#fff;
+			/*text-align:center;*/
+			color:#FFFFFF;
+			font-size:0.5rem;
+			   
+		}
+		#nav .title{
+			padding-top:0.94rem;
+			color:#000;
+			width:100%;
+			text-align:center;
+			margin-left: -1.0rem;
+		}
+		.aui-pull-right img{
+			position: absolute;
+			width:0.63rem;
+			top:0.94rem;
+			right:0.53rem;
+		}
+		#nav .aui-pull-left{
+			margin-left:0.42rem;
+			margin-top:0.92rem;
+			font-size: 0.50rem !important;
+			font-weight:600;
+			color:#000
+		}
+		
+		#nav .aui-pull-left span{
+			font-size: 0.50rem !important;
+		}
+    	.aui-tab{
+    	   border-top:1px solid
+    	}
+    	
+    	/*list*/
+    	.aui-list-view.aui-grid-view .aui-list-view-cell{
+         text-align:justify;
+        }
+        .price{
+         color:#FF0000;
+         font-size:0.36rem;
+         font-weight: 700;
+         margin-top:0.28rem
+        }
+        .icon{
+        float:right;
+        }
+         .icon img{
+	      height: 0.70rem;
+		 width: 0.70rem;
+		 margin-right:0.12rem;
+        }
+        #product{
+        	background-color: rgba(0,0,0,0);
+        }
+        #product li{
+        	padding:0;
+        	width:47%;
+        	margin:0.28rem 0 0 0.28rem;
+        	background-color: #fff;
+        }
+    	
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">搭配推荐</div>
+	</header>
+	
+	<div class="aui-tab aui-tab-primary">
+		<ul class="aui-tab-nav" id="tab">
+			<li class="active">时间</li>
+			<li>销量</li>
+			<li>价格</li>
+		</ul>
+	</div>
+ 
+     
+     <ul class="aui-list-view aui-grid-view" id="product">
+     	<li class="aui-list-view-cell aui-img aui-col-xs-6">
+     		<img class="aui-img-object" src="../image/img.jpg">
+     		<div class="aui-img-body">
+     			精选富硒小米，源于晋北天然富硒米
+     			<p class="price">￥22.5<span class="icon"><img src="../image/icon_shoppingcar.png" alt="" /></span></p>
+     		</div>
+     	</li>
+     	<li class="aui-list-view-cell aui-img aui-col-xs-6">
+     	  <img class="aui-img-object" src="../image/img.jpg">
+     		<div class="aui-img-body">
+     		精选富硒小米，源于晋北天然富硒米
+     		<p class="price">￥22.5<span class="icon"><img src="../image/icon_shoppingcar.png" alt="" /></span></p>
+     		</div>
+     	</li>
+     	<li class="aui-list-view-cell aui-img aui-col-xs-6">
+     		 <img class="aui-img-object" src="../image/img.jpg">
+     		<div class="aui-img-body">
+     			精选富硒小米，源于晋北天然富硒米
+     		<p class="price">￥22.5<span class="icon"><img src="../image/icon_shoppingcar.png" alt="" /></span></p>
+     		</div>
+     	</li>
+     	<li class="aui-list-view-cell aui-img aui-col-xs-6">
+     	   <img class="aui-img-object" src="../image/img.jpg">
+     		<div class="aui-img-body">
+     			精选富硒小米，源于晋北天然富硒米
+     		<p class="price">￥22.5<span class="icon"><img src="../image/icon_shoppingcar.png" alt="" /></span></p>
+     		</div>
+     	</li>
+     </ul>
+	
+	
+	
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/aui-alert.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+	 var tab = new auiTab({
+        element:document.getElementById("tab"),
+        index:1,
+        repeatClick:false
+    },function(ret){
+         $('#tab li').eq(ret.index-1).addClass('active').siblings().removeClass('active');
+    });  	
+	};
+</script>
+</html>

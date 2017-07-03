@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>提货</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <link rel="stylesheet" type="text/css" href="../css/alert.css" />
+    <style>
+/*收货地址*/
+		.address{
+			padding:0.43rem 0.56rem;
+			font-size:0.42rem;
+			font-weight:700;
+			border-top:0.01rem solid #ddd;
+			border-bottom:0.01rem solid #ddd;
+			background-color: #fff;
+			margin-bottom:0.28rem;
+		}
+		.address li p{
+			font-size:0.42rem;
+			font-weight:100;
+			
+		}
+		.address li:last-child{
+			float:right;
+			margin-top:-40px;
+		}
+		.address li:last-child img{
+			width:0.56rem;
+		}
+/*商品列表*/
+		#shoppingList .picture{
+		    max-width: 1.94rem!important;
+		    height: 1.94rem!important;
+		    line-height: 1.94rem!important;
+		  } 
+		  #shoppingList .name{
+		   font-size: 0.4rem;
+           color: #222222;
+           font-family:'Microsoft YaHei'; 
+		  }
+		  #shoppingList .number{
+		    min-height: 0.34rem!important;
+		    font-size: 0.3rem;
+		    width: 1.94rem !important;
+		    font-family: 'Microsoft YaHei';
+		    margin-top: 0.26rem;
+		  }
+		   #shoppingList .price{
+		    font-size:0.38rem;
+		    font-family:'Microsoft YaHei'; 
+		    margin-top:0.22rem;
+		    font-weight:800;
+		   }
+          .aui-counter-minus, .aui-counter-plus, input.aui-counter-input{
+           font-size:inherit!important;
+           height:0.21rem;
+          
+          }
+          .aui-text-danger {
+           color: #000 !important; 
+           }
+          .aui-pull-right {
+           margin-top: 0.22rem;
+          }
+          .delete{
+           height:1.13rem;
+           line-height:1.13rem;
+           position: relative;
+           border-top: 0.01rem solid #ccc;
+          border-bottom: 0.01rem solid #ccc;
+          background-color: #fff;
+          }
+          .delete img{
+            height:0.63rem;
+            width:0.54rem; 
+            position: absolute;
+            right:1.41rem;
+            top:0.21rem;
+            }
+            .delete span{
+            font-size:0.38rem;
+            position:absolute;
+            right:0.41rem;
+            color:#999;
+            }
+            #shoppingList .list{
+            margin-top:0.41rem;
+            background-color: #fff;
+            border-bottom:0.01rem solid #ccc;
+            }
+            #shoppingList .aui-list-view:after{
+            	border:0 none;
+            }
+            .last{
+            border-top:none;
+            }
+/*备注*/	
+		#remarks div{
+			font-size:0.56rem;
+			font-weight:500;
+		}
+		#remarks .aui-list-view-cell{
+			padding:0;
+		}
+		#remarks .aui-list-view-cell:last-child:after{
+			border:0 none;
+		}
+		#remarks .aui-list-view-cell div{
+			padding:0.28rem;
+			border-bottom:0.01rem solid #ccc;
+		}
+		#remarks .aui-list-view-cell span{
+			font-size:0.42rem;
+			color:#999;
+		}
+		#remarks input{
+			min-height:0;
+			font-size:0.42rem;
+			float:right;
+			width:85%;
+			margin-top:0.18rem;
+			
+		}
+/*送货方式*/
+		#express{
+			width:100%;
+			position:fixed;
+			bottom:0;
+			z-index:1;
+			background-color: #fff;
+			text-align:center;
+			font-size:0.56rem;
+			display:none;
+		}
+		#express li{
+			font-weight:300;
+			color:#333;
+			border-top:0.01rem solid #ddd;
+			height:1.21rem;
+			line-height: 1.21rem;
+		}
+		#express li:first-child{
+			height:1.56rem;
+			line-height:1.56rem;
+			font-weight:700;
+			color:#1AAB3C;
+		}
+				
+/*底部*/
+		#footer{
+			position:fixed;
+			bottom:0;
+			background-color: #fff;
+		}	
+		#footer li{
+			float:left;
+			font-size:0.45rem;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #fff;
+		}	
+		#footer li span{
+			color:#000;
+		}
+		#footer li em{
+			font-size:0.32rem;
+			
+		}
+		#footer li:first-child{
+			width:6.94rem;
+			padding-left:0.42rem;
+			/*margin-right:0.42rem;*/
+		}
+		#footer li:last-child{
+			float:right;
+			width:3.06rem;
+			text-align:center;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #FF3700;
+			color:#fff;
+			font-weight:700;
+		}
+    	
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">提货</div>
+	</header>
+	<div class="kongbai"></div>
+<!--收货地址-->
+	<div class="address">
+		<ul>收货地址
+			<li>
+				<p class="userName">张三，15555555555</p>
+				<p class="userAddress">北京市朝阳区北京创业大厦B座</p>
+			</li>
+			<li>
+				<img src="../image/address_icon_edit.png" alt="" onclick="openNewWin('myAddress')"/>
+			</li>
+		</ul>
+	</div>
+<!--商品列表-->
+<div class="aui-content">
+  	<ul class="aui-list-view" id="shoppingList">
+  		<li class="aui-list-view-cell aui-img aui-counter-list list" >
+  			<img class="aui-img-object aui-pull-left picture" src="../image/aui/demo1.png">
+  			<div class="aui-img-body name">
+  				<span class="title"></span>
+  				<div class="aui-counter-box">
+  					<div class="aui-pull-left aui-text-danger price">数量：<span class="unitName"></span></div>
+  					<div class="aui-counter aui-pull-right">
+  						<div class="aui-counter-minus aui-disabled"></div>
+  						<input class="aui-counter-input number count" type="text" id="count" value="10" >
+  						<div class="aui-counter-plus"></div>
+  					</div>
+  				</div>
+  			</div>
+  		</li>
+  	</ul>
+ </div>
+<!--备注-->
+	<ul class="aui-list-view" id="remarks">
+		<li class="aui-list-view-cell" data-win="list_arrow">
+			<div class="">留言: <input type="text" class="msg" placeholder="请输入留言"/></div>
+		</li>
+	</ul>
+<!--底部-->
+	<div id="footer">
+		<ul>
+			<li>
+				总数量:<span class="total">10<span>Kg</span></span>
+				
+			</li>
+			<li class="get_goods">立即提货</li>
+		</ul>
+	</div>		
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	
+	   
+	apiready = function(){
+		var userInfor = $api.getStorage('userInfor');
+		var name = userInfor.userName;
+		var title=api.pageParam.title,
+        	imgs=api.pageParam.imgs,
+        	unitName=api.pageParam.unitName,
+        	productId=api.pageParam.productId;
+		if(userInfor.nickName){
+			name = userInfor.nickName;
+		}
+		$('.userName').html(name+'，'+userInfor.userName);
+		$('.userAddress').html(userInfor.addressList[0].address);
+		
+		$('.picture').attr('src', imgs);
+		$('.title').html(title);
+		$('.unitName').html('1'+unitName);
+		$('.total span').html(unitName);
+		$('.aui-counter-minus').click(function(){
+			var n=$('.count').val();
+			var num=parseInt(n)-1;
+			if(num==0){return}
+			$(this).next().val(num);
+			$('.total').html(num+'<span>'+unitName+'</span>');
+			});
+		$('.aui-counter-plus').click(function(){	
+			var n=$('.count').val();	
+			var num=parseInt(n)+1;
+	        if(num==0){ return;}
+	       $(this).prev().val(num);
+	       $('.total').html(num+'<span>'+unitName+'</span>');
+		});
+		$('.get_goods').click(function(){
+			var total = parseInt($('.total').html());
+			if(total<10){
+				show('不足10'+unitName+'不能提货喔！');
+			}else{
+				var adderss = $('.userAddress').html();
+				api.ajax({
+	                url:BASE_URL+'pickup/addPickup.html?product_id='+productId+'&user_id='+userInfor.id+'&product_amount='+total+'&userName='+name+'&address='+adderss+'&telephone='+userInfor.userName+'&dispatch_type=快递',
+	                method:'GET'
+                },function(ret,err){
+                	if(ret && ret.stateCode == 1){
+                		var about_id = ret.pickup.id;
+                		var msg = $('.msg').val();
+                		if(msg !=''){
+                			api.ajax({
+	                            url:BASE_URL+'message/addMessage.html?&type_id=4&about_id='+about_id+'&content='+msg,
+	                            method:'GET'
+                            },function(rets,errs){
+                            	if(ret && ret.stateCode){
+                            		show(ret.stateMessage);
+                            	}
+                            });
+                		}else{
+                			show(ret.stateMessage);
+                		}
+                	}
+                	
+                });
+			}
+		})
+		
+	};
+</script>
+</html>

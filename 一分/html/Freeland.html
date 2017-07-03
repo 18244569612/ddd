@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的硒地</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+      #dynamic img{
+        width:1.94rem;
+        max-width:1.94rem;
+        height:1.94rem;
+        max-height:1.94rem;
+      }
+       #newList li{
+       width: 100%;
+       height: 65px;
+       border-bottom: 1px solid #e6e6e6;
+       line-height: 65px;
+     }
+    .List{
+      font-size: 15px;
+      color: #666666;
+      margin-left: 22px;
+            float: left;
+    }
+    .ListContent{
+      font-size: 15px;
+      color: #1E1E1E;
+            float: left;
+            margin-left: 16px;
+    }
+    .btn{
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      height: 65px;
+      background: #b22700;
+      text-align: center;
+      line-height: 65px;
+      font-size: 15px;
+            color: #fff;
+    }
+        .text{
+            width:70%!important;
+            min-height:100%!important;
+            float: left;
+            margin-left: 16px!important;
+            font-size: 15px!important;
+        }
+       
+       
+    </style>
+</head>
+<body>
+  <header id="nav">
+    <a class="aui-pull-left" onclick="closeW()">
+      <span class="aui-iconfont aui-icon-left"></span>
+    </a>
+    <div class="title">我的硒地</div>
+  </header>
+  <div class="kongbai"></div>
+  <div class="aui-aui-content">
+      <ul class="aui-list-view" id="newList">
+            <li><span class="List">土地编号</span><span class="ListContent">1—1</span></li>
+            <li><span class="List">土地编号</span><input type="text" class="text" placeholder="请输入对方注册手机号"></li>
+      </ul>
+     </div>
+</div>
+<div class="btn">立即赠送</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+  apiready = function() {
+    $('.btn').css("background-color","#bdbdbd");
+    $('.btn').attr({'disabled':'disabled'});
+    $(".text").focus(function(){
+      $('.btn').css("background-color","#b22700");
+      $('.btn').removeAttr('disabled');
+    });
+    var userInfor = $api.getStorage('userInfor');
+    //alert($api.jsonToStr(userInfor));
+    console.log($api.jsonToStr(userInfor))
+    var user_id = userInfor.id;
+    var userName = userInfor.userName;
+    var field_id = api.pageParam.field_id;
+    $('.ListContent').text(field_id);
+
+
+  }
+  $('.btn').click(function () {
+    var text = $('.text').val();
+    console.log(text);
+    var field_id = api.pageParam.field_id;
+    Freeland(field_id,text);
+  })
+  function Freeland(field_idt,to_user_name) {
+    var dialogBox = api.require('dialogBox');
+dialogBox.alert({
+    texts: {
+        title: '',
+        content: '你确定要把'+field_idt+'送给'+to_user_name+'用户吗？',
+        leftBtnTitle: '算了吧',
+        rightBtnTitle: '确认'
+    },
+    styles: {
+        bg: '#fff',
+        w: 300,
+        corner: 10, 
+        title: {
+            marginT: 20,
+            icon: 'widget://res/gou.png',
+            iconSize: 40,
+            titleSize: 14,
+            titleColor: '#000'
+        },
+        content: {
+            color: '#000',
+            size: 14
+        },
+        left: {
+            marginB: 7,
+            marginL: 150,
+            w: 60,
+            h: 35,
+            corner: 2,
+            bg: '',
+            color:'#a7a7a7',
+            size: 12
+        },
+        right: {
+            marginB: 7,
+            marginL: 10,
+            w: 60,
+            h: 35,
+            corner: 2,
+            bg: '',
+            color: '#18aa3d',
+            size: 12
+        }
+    }
+}, function(ret) {
+    if (ret.eventType == 'left') {
+        var dialogBox = api.require('dialogBox');
+        dialogBox.close({
+            dialogName: 'alert'
+        });
+    }
+    if (ret.eventType == 'right') {
+        var userInfor = $api.getStorage('userInfor');
+        var text = $('.text').val();
+        var user_id = userInfor.id;
+        var field_id = api.pageParam.field_id;
+        api.ajax({
+            url:  BASE_URL+'field/fieldPresent?field_id='+field_id+'&from_user_id='+user_id+'&to_user_name='+text+'',
+              method: 'get',
+        }, function(ret, err) {
+            if (ret) {
+                if(ret.stateCode == 1 ){
+                  var dialogBox = api.require('dialogBox');
+                  dialogBox.close({
+                    dialogName: 'alert'
+                  });
+                    api.openWin({
+                        name: 'presentedSuccess',
+                        url: 'presentedSuccess.html',
+                        pageParam: {
+                            name: 'value'
+                        }
+                    });
+                }else{
+                  api.alert({
+                    msg: ''+ret.stateMessage+'',
+                  }, function(ret, err) {
+
+
+                  });
+                }
+            } else {
+                alert(JSON.stringify(err));
+            }
+        });
+        console.log('1');
+    }
+});
+
+
+  }
+</script>
+</html>

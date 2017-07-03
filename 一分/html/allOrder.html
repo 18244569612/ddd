@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>全部</title>
+	<link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+    	#nav{
+    		border-bottom:0.01rem solid #ddd;
+    	}
+    	/*订单编号*/
+    	.number{
+    		margin-bottom:0;
+    	}
+    	.number div{
+    		font-size: 0.48rem;
+    		font-weight:700;
+    	}
+    	.number div:last-child{
+    		font-size:0.4rem;
+    		font-weight: 100;
+    		color:#333;
+    	}
+    	.number div:last-child:after{
+    		content:'';
+    	}
+    	.number .goods:after{
+    		content:'待收货';
+    		font-weight:100;
+    		color:#1AAB3C;
+    	}
+    	.number .money:after{
+    		content:'待支付';
+    		font-weight:100;
+    		color:#1AAB3C;
+    	}
+    	.number .success:after{
+    		content:'交易成功';
+    		font-weight:100;
+    		color:#1AAB3C;
+    	}
+    	/*商品信息*/
+    	.product{
+    		margin-bottom:0.28rem;
+    	}
+    	.product .aui-list-view{
+    		margin-bottom:0;
+    	}
+    	.product p{
+    		font-size:0.42rem;
+    		margin-top:0.25rem;
+    		color: #000;
+    	}
+    	.product p span{
+    		color:#FE0100;
+    		font-weight:700;
+    	}
+    	.product .aui-img-object{
+    		width:2.78rem;
+    		max-width:2.78rem;
+    		height:2.78rem;
+    		border:0.01rem solid #ddd;
+    	}
+    		/*待收货*/
+    	.product .btn li{
+    		height:1.25rem;
+    		line-height:1.25rem;
+    		width:100%;
+    		text-align:center;
+    		font-size:0.48rem;
+    		font-weight:700;
+    		float: left;
+    		background-color: #1AAB3C;
+    		color:#fff;
+    	}
+    		/*待支付*/
+    	.product .btn_money li{
+    		background-color: #ddd;
+    		color:#666;
+    		width:5.0rem;
+    	}
+    		/*交易成功*/
+    	.product .delete li{
+    		background-color: #ddd;
+    		color:#fff;
+    	}
+    	.product .btn_money li:last-child{
+    		background-color: #1AAB3C;
+    		color:#fff;
+    	}
+    	.aui-list-view:after{
+    		border:0 none;
+    	}
+    	
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">全部</div>
+	</header>
+	<div class="kongbai"></div>
+	<div id='infor'>
+<!--订单编号-->
+		
+	<!--商品信息-->
+		
+		<!--<div class="aui-aui-content product clearfix">
+			<ul class="aui-list-view number">
+				<li class="aui-list-view-cell" data-win="list_arrow">
+					<div class="aui-arrow-right goods">订单编号</div>
+					<div class="aui-arrow-right">订单号：12345678955658</div>
+				</li>
+			</ul>	
+			<ul class="aui-list-view">
+				<li class="aui-list-view-cell aui-img">
+					<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+					<div class="aui-img-body">
+						<p class="aui-ellipsis-2">订单日期：2017-5-5</p>
+						<p class="aui-ellipsis-2">订单数量：2件商品</p>
+						<p class="aui-ellipsis-2">订单金额：<span>￥75.50</span></p>
+					</div>
+				</li>
+			</ul>
+			<ul class="btn">
+				<li>确认收货</li>
+			</ul>
+		</div>-->
+		
+		<!--订单编号-->
+		
+	<!--商品信息-->
+		<!--<div class="aui-aui-content product clearfix">
+			<ul class="aui-list-view number ">
+				<li class="aui-list-view-cell" data-win="list_arrow">
+					<div class="aui-arrow-right money">订单编号</div>
+					<div class="aui-arrow-right">订单号：12345678955658</div>
+				</li>
+			</ul>	
+			<ul class="aui-list-view">
+				<li class="aui-list-view-cell aui-img">
+					<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+					<div class="aui-img-body">
+						<p class="aui-ellipsis-2">订单日期：2017-5-5</p>
+						<p class="aui-ellipsis-2">订单数量：2件商品</p>
+						<p class="aui-ellipsis-2">订单金额：<span>￥75.50</span></p>
+					</div>
+				</li>
+			</ul>
+			<ul class="btn btn_money">
+				<li>取消订单</li>
+				<li>去支付</li>
+			</ul>
+		</div>-->
+	<!--订单编号-->
+		
+	<!--商品信息-->
+		<!--<div class="aui-aui-content product clearfix">
+			<ul class="aui-list-view number">
+				<li class="aui-list-view-cell" data-win="list_arrow">
+					<div class="aui-arrow-right success">订单编号</div>
+					<div class="aui-arrow-right">订单号：12345678955658</div>
+				</li>
+			</ul>	
+			<ul class="aui-list-view">
+				<li class="aui-list-view-cell aui-img">
+					<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+					<div class="aui-img-body">
+						<p class="aui-ellipsis-2">订单日期：2017-5-5</p>
+						<p class="aui-ellipsis-2">订单数量：2件商品</p>
+						<p class="aui-ellipsis-2">订单金额：<span>￥75.50</span></p>
+					</div>
+				</li>
+			</ul>
+			<ul class="btn delete">
+				<li>删除订单</li>
+			</ul>
+		</div>-->
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var user = $api.getStorage('userInfor');
+		var numBer = 0;
+		$(window).scroll(function(){
+			if ($(document).height()-$(document).scrollTop()<=document.body.clientHeight) {
+				++numBer;
+				all(numBer);
+			}
+		});
+		all(numBer);
+		function all(index){
+			api.ajax({
+	            url:BASE_URL+'order/getOrdersByUser.html?user_id='+user.id+'&pageIndex='+index,
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode==1){
+            		var ret = ret.resultList, str='';
+            		for(var i = 0; i < ret.length; i++){
+						var time = ret[i].car.addTime;
+						time =time.substring(0,10);
+						var price = ret[i].car.product.price;
+						var amount = ret[i].car.product_amount;
+						var prices = price*amount+8;
+			//			待支付
+						var order = '', btn='';
+						if(ret[i].order_status == 1){
+							order = '<div class="aui-arrow-right goods">订单编号</div>';
+							btn = '<ul class="btn clearfix">'+
+										'<li>确认收货</li>'+
+									'</ul>'
+							
+						}else if(ret[i].order_status == 2 ||ret[i].order_status == 0){
+							order = '<div class="aui-arrow-right money">订单编号</div>';
+							btn = '<ul class="btn btn_money clearfix" pId='+ret[i].car.product.id+' cId='+ret[i].car.id+'>'+
+										'<li class="cancle" data='+ret[i].id+'>取消订单</li>'+
+										'<li class="goMoney" nId='+ret[i].order_id+' price='+prices+' time='+ret[i].car.addTime+'>去支付</li>'+
+									'</ul>'
+						}
+						str='<div class="aui-aui-content product clearfix">'+
+								'<ul class="aui-list-view number">'+
+									'<li class="aui-list-view-cell" data-win="list_arrow">'+order+
+										'<div class="aui-arrow-right">订单号：'+ret[i].order_id+'</div>'+
+									'</li>'+
+								'</ul>'+
+								'<ul class="aui-list-view">'+
+									'<li class="aui-list-view-cell aui-img">'+
+										'<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">'+
+										'<div class="aui-img-body">'+
+											'<p class="aui-ellipsis-2">订单日期：'+time+'</p>'+
+											'<p class="aui-ellipsis-2">订单数量：'+amount+'件商品</p>'+
+											'<p class="aui-ellipsis-2">订单金额：<span>￥'+prices+'</span></p>'+
+										'</div>'+
+									'</li>'+
+								'</ul>'+btn+
+							'</div>'
+							$('#infor').append(str);
+					}
+					
+            	}
+            });
+		}
+		$('#infor').on('click', '.goMoney', function(){
+			var id=$(this).parent().attr('pId');//产品id
+			alert(id);
+			var carId=$(this).parent().attr('cId');//购物车id 
+			var orderId=$(this).siblings('.cancle').attr('data');//订单id
+			var numId=$(this).attr('nId');//订单编号
+			var sum=$(this).attr('price');//金额
+			var time=$(this).attr('time');
+			api.openWin({
+	            name: 'payment',
+	            url: 'payment.html',
+	            pageParam:{
+	            	id:id,
+	            	carId:carId,
+	            	orderId:orderId,
+	            	numId:numId,
+	            	sum:sum,
+	            	time:time
+	            }
+            });
+		}) 
+		//		取消订单
+		$('.infor').on('click', '.cancle', function(){
+			var id = $(this).attr('data');
+			api.ajax({
+	            url:BASE_URL+'order/deleteOrder.html?order_id='+id,
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            		show('取消订单成功');
+            	}
+            });
+            $(this).parent().parent().parent().remove();
+		})
+	};
+</script>
+</html>

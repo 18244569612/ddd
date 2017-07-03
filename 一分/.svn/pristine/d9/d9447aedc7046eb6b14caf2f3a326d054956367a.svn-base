@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>新增地址</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <link rel="stylesheet" type="text/css" href="../css/alert.css" />
+    <style>
+    	#nav{
+    		border-bottom:0.01rem solid #ccc;
+    	}
+    	#nav .aui-pull-right{
+    		margin-top:-0.69rem;
+    		margin-right:0.42rem;
+    		color:#FED520;
+    		font-weight:700;
+    		
+    	}
+    	#info{
+    		margin:0;
+    		border-radius:0;
+    		padding:0 0.42rem;
+    	}
+    	#info span{
+    		font-size:0.48rem;
+    	}
+    	#info .aui-input-row{
+    		height:1.18rem;
+    		min-height:1.18rem;
+    		max-height:1.18rem;
+    	}
+    	#info input{
+    		height:1.18rem;
+    		min-height:1.18rem;
+    		max-height:1.18rem;
+    	}
+    	#addressView{
+		    width: 80%;
+		    height: 1.1rem;
+    	}
+    	
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">新增地址</div>
+		<a class="aui-pull-right">
+			<span id="keep">保存</span>
+		</a>
+	</header>
+	<div class="kongbai"></div>
+	<div class="aui-card aui-noborder" id="info">
+		<div class="aui-form">
+			<div class="aui-input-row">
+				<span class="aui-input-addon ">收货人:</span>
+				<input type="text" class="aui-input userName" placeholder="">
+			</div>
+			<div class="aui-input-row">
+				<span class="aui-input-addon">手机号码:</span>
+				<input type="number" class="aui-input telephone" placeholder="">
+			</div>
+			<div class="aui-input-row" >
+				<span class="aui-input-addon">省市区:</span>
+				<input id="addressView" type="text" class="aui-input" placeholder="请选择" value="">
+			</div>
+			<div class="aui-input-row">
+				<span class="aui-input-addon">详细地址:</span>
+				<input type="text" id="detailed" class="aui-input" placeholder="">
+			</div>
+		</div>
+	</div>
+	<div id="alert"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+			//三级联动
+		var addressView = api.require('addressView');
+		addressView.open({
+	        file_addr: 'widget://script/address.txt', //数据源地址
+	        selected_color: '#ff0000', //颜色
+	        pro_id: 110000, //省id
+	        city_id: 110100, //市id
+	        dir_id: 110101 //区id
+	    });
+	   
+	   
+	    $api.addEvt($api.byId("addressView"), 'click', function() {
+	        addressView.show({}, function(ret, err) {
+	            if (ret.status) {
+	                //alert(JSON.stringify(ret.data)); //返回值
+	                var inner='';
+	                for(var i=0;i<ret.data.length;i++){
+	                	inner+=ret.data[i].name
+	                }
+	                $('#addressView').html(inner);
+	            }
+	        });
+	    });
+	    
+		var userInfor = $api.getStorage('userInfor');
+		$('#keep').click(function(){
+			var address = $('#addressView').val()+$('#detailed').val();
+			var userName = $('.userName').val();
+			var telephone = $('.telephone').val();
+			api.ajax({
+	            url:BASE_URL+'user/addUserAddress.html?userid='+userInfor.id+'&address='+address+'&userName='+userName+'&telephone='+telephone,
+	            method:'GET'
+            },function(ret,err){
+            	console.log(JSON.stringify(ret));
+            	if(ret && ret.stateCode == 1){
+            		show(ret.stateMessage)
+					closeW();
+            	}else{
+            		show('添加失败！');
+            	}
+            });
+		})
+		
+	};
+</script>
+</html>

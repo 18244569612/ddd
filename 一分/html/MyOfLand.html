@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的硒地</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <style>
+        #dynamic img{
+            width:1.94rem;
+            max-width:1.94rem;
+            height:1.94rem;
+            max-height:1.94rem;
+        }
+       #newList li{
+           width: 100%;
+           height: 2rem;
+           border-bottom: 1px solid #e6e6e6;
+           line-height: 2rem;
+       }
+        #newList li p {
+            width: 100%;
+            font-size: 0.4rem;
+            color: #666666;
+        }
+        .List{
+            display: left;
+            padding-left: 0.5rem;
+            width: 25%;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: left;
+        }
+        .ListContent{
+            display: left;
+            width: 74%;
+            height: 2rem;
+            line-height: 2rem;
+            text-align: left;
+        }
+        .btn{
+                position: relative;
+                bottom: 0rem;
+                width: 100%;
+                height: 1.85rem;
+                background: #fed420;
+                text-align: center;
+                line-height: 1.85rem;
+                font-size: 0.6rem;
+        } 
+    </style>
+</head>
+<body>
+    <header id="nav">
+        <a class="aui-pull-left" onclick="closeW()">
+            <span class="aui-iconfont aui-icon-left"></span>
+        </a>
+        <div class="title">我的硒地</div>
+    </header>
+    <div class="kongbai"></div>
+    <div class="aui-aui-content">
+        <ul class="aui-list-view" id="newList"> 
+        </ul>
+     </div>
+</div>
+<div class="btn">赠送</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+    apiready = function() {
+        var field_id = api.pageParam.Bid;
+        //alert(field_id)
+        api.ajax({
+            url: BASE_URL+'field/getFieldInfo?field_id='+field_id,
+            method: 'get',
+            dataType: 'json',
+            returnAll: false,
+        }, function (ret, err) {
+            $api.jsonToStr(ret);
+            //alert($api.jsonToStr(ret));
+            var str = '<li><p><span class="List">地名</span><span class="ListContent">'+ret.fieldInfo.title+'</span></p></li><li><p><span class="List">位置</span><span class="ListContent">'+ret.fieldInfo.location+'</span></p></li><li><p><span class="List">地编号</span><span class="ListContent ListContentField_id">'+ret.fieldInfo.field_id+'</span></p></li> <li><p><span class="List">有效期</span><span class="ListContent">'+ret.fieldInfo.price+'</span></li><li><p><span class="List">种植作物</span><span class="ListContent">'+ret.fieldInfo.product_id+'</span></p></li><li><p><span class="List">当前状态</span><span class="ListContent">'+ret.fieldInfo.status+'</span></p></li>';
+            $('#newList').append(str);
+        });
+    } 
+    $('.btn').click(function () {
+        var field_id = $('.ListContentField_id').text();
+        api.openWin({
+            name: 'Freeland',
+            url: 'Freeland.html',
+            pageParam: {
+                field_id: field_id
+            }
+        });
+    })
+</script>
+</html>

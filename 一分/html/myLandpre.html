@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>我的硒地</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <link rel="stylesheet" type="text/css" href="../css/alert.css" />
+    <style>
+	     body{
+		     height:100%;
+		     background-color: #fff;
+		     line-height: 1.25;
+	        }
+		.number{
+		     border-top:1px solid #ccc;
+		     height:1.25rem;
+		    }
+	    .number span{
+	       margin-left:0.42rem;
+	       font-size:0.42rem;
+	       color:#999;
+	      }
+	    .number input{
+	      font-size:0.43rem;
+	      color:#000;
+	      padding: 0 0.4rem;
+	      }
+         .gift{
+           border-bottom:1px solid #ccc;
+          }
+          #toOthers{
+            width: 7.0rem;
+		    display: inline-block;
+		    height: 1.2rem;
+		    min-height: 1.2rem;
+          }
+          
+          /*按钮*/
+         .aui-btn-warning {
+		    color: #fff!important;
+		    background-color: #b22700 !important;
+		    height: 1.25rem;
+		    line-height: 1.25rem;
+		    width: 100%;
+		    border-radius:0;
+		    padding:0;
+		    position:absolute;
+		    bottom:0;
+		    font-size:0.48rem;
+		    font-weight:700;	
+		    border:1px solid #ccc;	   
+          }
+	           /*弹窗样式*/
+	        .black_overlay{
+			display: none;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index:1001;
+			-moz-opacity: 0.8;
+			opacity:.80;
+			filter: alpha(opacity=80);
+			}
+			.white_content {
+			display: none;
+		    position: absolute;
+		    bottom: 40%;
+		    left: 6%;
+		    border-radius: 15px 15px;
+		    width: 8.75rem;
+		    height: 3.47rem;
+		    background-color: white;
+		    z-index: 1002;
+			}
+			.white_content_small {
+			display: none;
+			position: absolute;
+			top: 20%;
+			left: 30%;
+			width: 40%;
+			height: 50%;
+			border: 16px solid lightblue;
+			background-color: white;
+			z-index:1002;
+			overflow: auto;
+			}
+			#MyDiv img{
+			height:30px;
+			width:30px;
+			margin-top:1%;
+			margin-right:3%;}
+			
+			#cate p{
+			font-size:0.42rem;
+			color:#000;
+			padding:0.56rem 0.22rem;
+			 }
+			#confirm{
+			  width: 2.06rem;
+			  font-size:0.42rem;
+			  background-color: #fff;
+			  color:#1aab3d;
+			  border:none;
+			 }
+			 #cancle{
+			 	width: 2.39rem;
+			    font-size: 0.42rem;
+			    background-color: #fff;
+			    color: #999;
+			    border: none;
+			    margin-left: 3.69rem;
+			 }
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">我的硒地</div>
+	</header>
+	<div class="kongbai"></div>
+	<div class="number landNum">
+		<span class="">地编号 :</span>
+		<input type="" class="" placeholder="C6-2/3">
+	</div>
+	<div class="number gift">
+		<span class="">转增给:</span>
+		<input type="number" class=""  id="toOthers" placeholder="请输入对方注册手机号">
+	</div>
+	
+	<div class="aui-btn aui-btn-warning" id="give">立即赠送</div>
+		
+	<div id="fade" class="black_overlay"></div>
+	<div id="MyDiv" class="white_content">  
+	    <div class="" id="cate">
+	      <p>您确定要将C6-2/3赠送给131545121415616用户吗？</p>
+	      <li>	
+		      <div class="aui-btn " id="cancle" onclick="CloseDiv('MyDiv','fade')">算了吧</div>
+			  <div class="aui-btn " id="confirm"  onclick="openNewWin('presentedSuccess')">确定</div>
+		 </li>
+	 	</div>	
+	</div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/aui-dialog.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript">
+
+	function ShowDiv(show_div,bg_div){
+	document.getElementById(show_div).style.display='block';
+	document.getElementById(bg_div).style.display='block' ;
+	var bgdiv = document.getElementById(bg_div);
+	bgdiv.style.width = document.body.scrollWidth;
+	$("#"+bg_div).height($(document).height());
+	};
+	//关闭弹出层
+	function CloseDiv(show_div,bg_div){
+	document.getElementById(show_div).style.display='none';
+	document.getElementById(bg_div).style.display='none';
+	};	
+	//关闭窗口
+	function closeW(){
+		api.closeWin({
+	       });
+	}	
+
+
+	apiready = function(){
+		var num = api.pageParam.num;
+		var others=$('#toOthers').val
+		var field= $api.getStorage('field');
+	 	var user = $api.getStorage('userInfor');
+		$('.landNum input').val(num);
+		$('.landNum input').css('disabled', 'disabled');
+		$('#give').click(function(){
+		
+		
+			var number = $('.landNum input').val();
+	  		var phone = $('#toOthers').val();
+	  		if(!_checkPhone(phone)){
+				show('请输入正确的手机号');
+	 			return;
+	 		}
+	  		$('#cate p').html('您确定要将'+number+'赠送给'+phone+'用户吗？');
+	  		ShowDiv('MyDiv','fade');
+		 	$('#confirm').click(function(){
+		        api.ajax({
+			        url:BASE_URL+'fieldPresent?htmlfield_id='+field.field_order.field.field_id+'&from_user_id='+user.userName+'&to_user_name='+others,
+			        method: 'get',
+			        dataType:'json'
+					},function(ret,err){
+					  if(ret && ret.stateCode == 1){
+							 api.openWin({
+						        name:'presentedSuccess',
+						        url:'presentedSuccess.html',
+						        pageParam:{
+							         
+						             }
+					   });
+					 }else if(ret.stateCode == 0){
+			        	 alert('转增失败 ，请重试！')
+				      }
+				   })  
+		      })
+	      })
+	 };
+	// 验证手机号
+ 		function _checkPhone(phone) {
+		    var res = !!phone.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[012356789]|18[0-9]|14[57])[0-9]{8}$/);
+		    return res;
+	 	}  
+</script>
+</html>

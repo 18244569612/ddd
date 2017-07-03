@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>购物车</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css" />
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/header_white.css" />
+    <link rel="stylesheet" type="text/css" href="../css/alert.css" />
+    <style>
+		    body{
+		      height:100%;
+		      background-color: #F2F2F2F;
+		    }
+		  .aui-checkbox {
+		    width: 0.7rem;
+		    height: 0.7rem;
+		    border-radius: 1.1rem;
+		    }
+		  #shoppingList{
+		    background-color: #f2f2f2;
+		   }
+		  #shoppingList .picture{
+		    max-width: 1.94rem!important;
+		    height: 1.94rem!important;
+		    line-height: 1.94rem!important;
+		  } 
+		  #shoppingList .name{
+		   font-size: 0.4rem;
+           color: #222222;
+           font-family:'Microsoft YaHei'; 
+		  }
+		  #shoppingList .number{
+		    min-height: 0.41rem!important;
+		    font-size: 0.32rem;
+		    width: 1.5rem !important;
+		    font-family: 'Microsoft YaHei';
+		    margin-top: 0.15rem;
+		       height: 0.5rem
+		  }
+		   #shoppingList .price{
+		    font-size:0.38rem;
+		    font-family:'Microsoft YaHei'; 
+		    margin-top:0.22rem;
+		    font-weight:800;
+		   }
+          .aui-counter-minus, .aui-counter-plus, input.aui-counter-input{
+           font-size:inherit!important;
+           height:0.41rem;
+          
+          }
+          .aui-pull-right {
+           margin-top: 0.22rem;
+          }
+          /*删除栏*/
+          .delete{
+           height:1.13rem;
+           line-height:1.13rem;
+           position: relative;
+           border-top: 0.01rem solid #ccc;
+          background-color: #fff;
+          margin-top:0.40rem;
+          }
+          .delete img{
+            height:0.63rem;
+            width:0.54rem; 
+            position: absolute;
+            right:1.41rem;
+            top:0.21rem;
+            }
+            .delete span{
+            font-size:0.38rem;
+            position:absolute;
+            right:0.41rem;
+            color:#999;
+            }
+            #shoppingList .list{
+            margin-top:0.41rem;
+            background-color: #fff;
+            padding-bottom:0;
+            }
+            .last{
+            border-top:none;
+            }
+            /*底部*/
+		#footer{
+			position:fixed;
+			bottom:0;
+			background-color: #fff;
+		}	
+		#footer li{
+			float:left;
+			font-size:0.45rem;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #fff;
+		}	
+		#footer li span{
+			color:#db4154;
+		}
+		#footer li em{
+			font-size:0.32rem;
+			
+		}
+		#footer li:first-child{
+			width:6.94rem;
+			padding-left:0.42rem;
+			/*margin-right:0.42rem;*/
+		}
+		#footer li:last-child{
+			float:right;
+			width:3.06rem;
+			text-align:center;
+			height:1.22rem;
+			line-height:1.22rem;
+			background-color: #FF3700;
+			color:#fff;
+			font-weight:700;
+		}
+    	
+    </style>
+</head>
+<body>
+	<header id="nav">
+		<a class="aui-pull-left" onclick="closeW()">
+			<span class="aui-iconfont aui-icon-left"></span>
+		</a>
+		<div class="title">购物车</div>
+	</header>
+	<div class="kongbai"></div>
+  
+  <div class="aui-content">
+  	<ul class="aui-list-view" id="shoppingList">
+  		<!--<li class="aui-list-view-cell aui-img aui-counter-list list" >
+  			<input class="aui-pull-left aui-checkbox aui-checkbox-primary numbers" type="checkbox" id="number">
+  			<img class="aui-img-object aui-pull-left picture" src="../image/aui/demo1.png">
+  			<div class="aui-img-body name">
+  				养生醋礼品包装
+  				<div class="aui-counter-box">
+  					<div class="aui-pull-left aui-text-danger price">¥ 67.5</div>
+  					<div class="aui-counter aui-pull-right">
+  						<div class="aui-counter-minus aui-disabled"></div>
+  						<input class="aui-counter-input number" type="text" value="1" >
+  						<div class="aui-counter-plus"></div>
+  					</div>
+  				</div>
+  			</div>
+  			<div class="delete" >
+		      <img src="../image/address_icon_delete.png" alt="" >
+				<span class="" style="">删除</span>
+			</div>
+  		</li>-->
+  		
+  	</ul>
+  </div>
+<!--底部-->
+	<div id="footer">
+		<ul>
+			<li>
+				合计金额:<span>0</span>
+				<em>包含运费:￥8.00元</em>
+			</li>
+			<li class="imid">立即付款</li>
+		</ul>
+	</div>		
+	 
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript">
+ 
+	apiready = function(){
+    	var userInfor = $api.getStorage('userInfor');
+    	product();
+    	function product(){
+    		api.ajax({
+	            url:BASE_URL+'car/getCarsByUser.html?user_id='+userInfor.id+'&status=0&pageIndex=0',
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            		var list = ret.resultList, str = "";
+            		for(var i = 0; i<list.length; i++){
+            			var name = "", price="", pId="", amount=""; 
+            			if(!list[i].product && !list[i].unionInfo){
+            				continue;
+            			}
+            			if(!list[i].product){
+            				name = list[i].unionInfo.union_produce;
+            				price = list[i].unionInfo.price;
+            				pId = list[i].produc_union_id;
+            				amount = list[i].product_amount;
+            			}else{
+            				name = list[i].product.title;
+            				price = list[i].product.price;
+            				pId = list[i].product_id;
+            				amount = list[i].product_amount;
+            			}
+            			str+='<li class="aui-list-view-cell aui-img aui-counter-list list" name='+name+' money='+price+' pId='+pId+' cId='+list[i].id+' >'+
+					  			'<input class="aui-pull-left aui-checkbox aui-checkbox-primary yes" type="checkbox" id="number">'+
+					  			'<img class="aui-img-object aui-pull-left picture" src="../image/aui/demo1.png">'+
+//					  			'<img class="aui-img-object aui-pull-left picture" src='+list[i].product.img_url+'>'+
+					  			'<div class="aui-img-body name">'+name+
+					  				'<div class="aui-counter-box">'+
+					  					'<div class="aui-pull-left aui-text-danger price" money='+price+'>￥'+price+'</div>'+
+					  					'<div class="aui-counter aui-pull-right">'+
+					  						'<div class="aui-counter-minus aui-disabled"></div>'+
+					  						'<input class="aui-counter-input number" type="text" value='+amount+' >'+
+					  						'<div class="aui-counter-plus"></div>'+
+					  					'</div>'+
+					  				'</div>'+
+					  			'</div>'+
+					  			'<div class="delete" cId='+list[i].id+'>'+
+							      '<img src="../image/address_icon_delete.png" alt="" >'+
+									'<span class="" style="">删除</span>'+
+								'</div>'+
+					  		'</li>'
+            		}
+            		
+            		$('#shoppingList').append(str);
+            	}
+            });
+            
+            api.ajax({
+	            url:BASE_URL+'car/getCarsByUser.html?user_id='+userInfor.id+'&status=0&pageIndex=1',
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            		var list = ret.resultList, str = "";
+            		for(var i = 0; i<list.length; i++){
+            			var name = "", price="", pId="", amount=""; 
+            			if(!list[i].product && !list[i].unionInfo){
+            				continue;
+            			}
+            			if(!list[i].product){
+            				name = list[i].unionInfo.union_produce;
+            				price = list[i].unionInfo.price;
+            				pId = list[i].produc_union_id;
+            				amount = list[i].product_amount;
+            			}else{
+            				name = list[i].product.title;
+            				price = list[i].product.price;
+            				pId = list[i].product_id;
+            				amount = list[i].product_amount;
+            			}
+            			str+='<li class="aui-list-view-cell aui-img aui-counter-list list" name='+name+' money='+price+' pId='+pId+' cId='+list[i].id+' >'+
+					  			'<input class="aui-pull-left aui-checkbox aui-checkbox-primary yes" type="checkbox" id="number">'+
+					  			'<img class="aui-img-object aui-pull-left picture" src="../image/aui/demo1.png">'+
+//					  			'<img class="aui-img-object aui-pull-left picture" src='+list[i].product.img_url+'>'+
+					  			'<div class="aui-img-body name">'+name+
+					  				'<div class="aui-counter-box">'+
+					  					'<div class="aui-pull-left aui-text-danger price" money='+price+'>￥'+price+'</div>'+
+					  					'<div class="aui-counter aui-pull-right">'+
+					  						'<div class="aui-counter-minus aui-disabled"></div>'+
+					  						'<input class="aui-counter-input number" type="text" value='+amount+' >'+
+					  						'<div class="aui-counter-plus"></div>'+
+					  					'</div>'+
+					  				'</div>'+
+					  			'</div>'+
+					  			'<div class="delete" >'+
+							      '<img src="../image/address_icon_delete.png" alt="" >'+
+									'<span class="" style="">删除</span>'+
+								'</div>'+
+					  		'</li>'
+            		}
+            		
+            		$('#shoppingList').append(str);
+            	}
+            });
+
+    	
+    	}
+    	
+    	$('#shoppingList').on('click', '.delete', function(){
+    		var cId = $(this).attr('cId');
+    		api.ajax({
+	            url:BASE_URL+'car/deleteCars.html?car_ids='+cId,
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            		show(ret.stateMessage);
+            	}
+            });
+            $(this).parent().remove();
+    	})
+    	
+    	
+    	
+    	$('#shoppingList').on('click', '.yes', function(){
+//  		单个商品结算
+//  		$(this).parent().siblings('li').find('.yes').attr('checked', false);
+//  		var unitPrice = $(this).siblings('.name').find('.price').attr('money');
+//  		var num = $(this).siblings('.name').find('.number').val();
+    		var money  =  0;
+    		var checked = $('#shoppingList .yes:checked').length;
+    		if(checked<1){
+    			money = 0;
+    		}
+//    		多个商品结算
+    		$('#shoppingList .yes:checked').each(function(){
+    			var unitPrice = $(this).siblings('.name').find('.price').attr('money');
+    			var num = $(this).siblings('.name').find('.number').val();
+    			
+    			money  +=  unitPrice*num;
+    			
+    		});
+    		money = money+8;
+    		$('#footer span').html('￥'+money);
+    		$('#footer span').attr('value', money)
+    		
+    	});
+    	$('.imid').click(function(){
+    		var checked = $('#shoppingList .yes:checked').length;
+    		if(checked < 1){
+    			show('请选择一种商品购买！');
+    			return;
+    		}
+    		var arr = [];
+    		$('#shoppingList .yes:checked').each(function(){
+    			var obj = {};
+    			obj.name = $(this).parent().attr('name');//商品名称
+    			obj.price= $(this).parent().attr('money'); //价格
+    			obj.image= $(this).siblings('img').attr('src'); //图片
+    			obj.id = $(this).parent().attr('pId');//商品id
+    			obj.counts=$(this).siblings('.name').find('.number').val(); //商品数量
+    			obj.carId=$(this).parent().attr('cId'); //购物车id
+    			arr.push(obj);
+    		});
+		    var sum= $(this).siblings().find('span').attr('value') //总金额
+		    api.openWin({
+		        name:'balance',
+		        url:'balance.html',
+		        pageParam:{
+		          arr:arr,
+		          sum:sum
+		       }
+	        });
+		       
+    	})
+    	$('#shoppingList').on('click', '.aui-counter-minus', function(){
+			var _v =$(this).siblings('.number').val();
+			if(_v>1){
+				$(this).siblings('.number').val(--_v);
+			}
+		});
+		$('#shoppingList').on('click', '.aui-counter-plus', function(){
+			var _v =$(this).siblings('.number').val();	
+			$(this).siblings('.number').val(++_v);
+		});
+    	
+	}
+		
+	
+       
+</script>
+</html>

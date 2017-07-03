@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/alert.css"/>
+    <style>
+    	body{
+    		background-color: #fff;
+    	}
+    	.imgs{
+    		width:100%;
+    		height:6.46rem;
+    		background-image:url('../image/login_bg-img.jpg');
+    		background-size:100% 6.46rem;
+    	}
+    	.imgs img{
+    		width:2.71rem;
+    		height:2.29rem;
+    		margin-top:1.88rem;
+    		margin-left:3.61rem;
+    	}
+    	.enroll{
+    		width:9.17rem;
+    		margin-top:-1.53rem;
+    		margin-left:0.42rem;
+    		background-color: #fff;
+    		/*height: 6.11rem;*/
+    		border-radius:0.14rem;
+    		box-shadow:0 0.05rem 0.34rem #999;
+    	}
+    	.tab{
+    		width:100%;
+    		height:1.53rem;
+    		color:#333;
+    		font-size:0.39rem;
+    		line-height:1.53rem;
+    		background-color: #eee;
+    		box-shadow:0 0.05rem 0.34rem #999;
+    		border-radius:0.14rem 0.14rem 0 0;
+    	}
+    	.tab li{
+    		width:4.48rem;
+    		display:inline-block;
+    		text-align:center;
+    	}
+    	.tab li:first-child{
+    		border-radius:0.14rem 0 0 0;
+    	}
+    	.tab li:last-child{
+    		border-radius:0 0.14rem 0 0;
+    	}
+    	.tab .active{
+    		background-color: #fff;
+    	}
+    	.iphon, .user{
+    		width:100%;
+    		text-align:center;
+    		font-size:0.36rem;
+    		
+    	}
+    	.iphon li, .user li{
+    		border-bottom:0.01rem solid #cdcdcd;
+    		margin-left:0.46rem;
+    		position:relative;
+    	}
+    	.iphon span{
+    		padding:0.21rem;
+    		background-color: #e1e1e1;
+    		border-radius:0.07rem;
+    		position:absolute;
+    		top:0.40rem;
+    		right:0.43rem;
+    		display:inline-block;
+    	}
+    	.iphon img, .user img{
+    		display:inline;
+    		width:0.56rem;
+    		height:0.56rem;
+    		position:absolute;
+    		left:0.28rem;
+    		top:0.54rem;
+    		/*font-size:0.56rem;*/
+    	}
+    	
+    	.iphon input, .user input{
+    		height:1.53rem;
+    		width:8.33rem;
+    		font-size:0.42rem;
+    		padding-left:1.11rem;
+    		min-height:0;
+    		
+    	}
+    	.iphon li:last-child, .user li:last-child{
+    		border:0 none;
+    	}
+    	.login{
+    		width:9.17rem;
+    		height:1.25rem;
+    		line-height:1.25rem;
+    		text-align:center;
+    		background-color: #eee;
+    		border-radius:0.14rem;
+    		margin-top:0.63rem;
+    		margin-left:0.42rem;
+    		font-size:0.56rem;
+    		font-weight: 600;
+    	}
+    	.user{
+    		display:none;
+    	}
+    </style>
+</head>
+<body>
+	<div class="imgs">
+		<img src="../image/logo.png" alt="" />
+	</div>
+	<div class="enroll">
+		<ul class="tab">
+			<li class="active" value="iphon">手机号快捷登录</li>
+			<li id="user" value="user">账号密码登录</li>
+		</ul>
+		<ul class="iphon info">
+			<li>
+				<img src="../image/login_icon_phone.png" alt="" />
+				<input type="number" class="iphoneCode" placeholder="请输入您的手机号" />
+				<span class="code">获取验证码</span>
+			</li>
+			<li>
+				<img src="../image/login_icon_validate.png" alt="" />
+				<input type="number" class="note" placeholder="请输入短信验证码" />
+			</li>
+			<li>
+				<img src="../image/login_icon_recommend.png" alt="" />
+				<input type="text" placeholder="推荐人（可选）"/>
+			</li>
+		</ul>
+		<ul class="user info">
+			<li>
+				<img src="../image/login_icon_phone.png" alt="" />
+				<input type="number" class="iphoneCodes" placeholder="请输入您的手机号" />
+			</li>
+			<li>
+				<img src="../image/login_icon_validate.png" alt="" />
+				<input type="password" class="notes" placeholder="请输入您的密码" />
+			</li>
+		</ul>
+	</div>
+	<div class="login">登录</div>
+	<div id="alert"></div>
+</body>
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript" src="../script/alert.js"></script>
+<script type="text/javascript" src="../script/verCode.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+	var flag = api.pageParam.flag;
+	if(flag){
+		$('.user').css('display', 'block').siblings('.info').css('display', 'none');
+		$('#user').addClass('active').siblings('li').removeClass('active');
+	}
+	
+	var yanzhengCode = 0;
+	$('.code').click(function(){
+		var phone = $('.iphoneCode').val();
+		if(!_checkPhone(phone)){
+				show('请输入正确的手机号');
+	 		return;
+	 	}else{
+		//	短信验证码
+			$.ajax({
+				type: "GET",
+				url: 'http://www.tusooo.com/register/sendVerfiedCode.html?mobile='+phone,
+				success: function(result) {
+							yanzhengCode = result;
+							return yanzhengCode;
+						},
+				error: function() { alert("error"); }
+			});
+		}
+	})
+	
+	//点击登录
+		$('.login').click(function(){
+			var lon = $('.tab .active').attr('value');
+			if($('.login').css('backgroundColor') == 'rgb(238, 238, 238)'){
+				show('请填写完整！');
+				return;
+			}
+			if(lon == 'iphon'){
+				var code = $('.note').val();
+				var phone = $('.iphoneCode').val();
+				if(code == yanzhengCode){
+					api.openWin({
+		                name: 'setPassword',
+		                url: 'setPassword.html',
+		                pageParam:{
+		                	phone:phone
+		                }
+	                }); 
+				}else{
+					show('验证码错误！');
+				}
+			}else{
+				var iphoneCodes = $('.iphoneCodes').val();
+				var notes = $('.notes').val();
+				api.ajax({
+	                url:BASE_URL+'user/doLogin.html?userName='+iphoneCodes+'&password='+notes,
+	                method:'GET'
+                },function(ret,err){
+                	if(ret && ret.stateCode == 1){
+                		show('登录成功');
+                		$api.setStorage('userInfor',ret.user);
+                		api.openWin({
+	                        name: 'index',
+	                        url: '../index.html'
+                        });
+                	}else{
+						show('登录失败');
+                	}
+                });
+			}
+			
+			
+		})
+	
+	
+	
+//		验证手机号
+ 		function _checkPhone(phone) {
+		    var res = !!phone.match(/^(0|86|17951)?(13[0-9]|15[012356789]|17[012356789]|18[0-9]|14[57])[0-9]{8}$/);
+		    return res;
+	 	}  
+		//获取6位随机验证码
+		function random() {
+			var num = "";
+			for (i = 0; i < 6; i++) {
+				num = num + Math.floor(Math.random() * 10);
+			}
+			return num;
+		}
+		//验证码有效期倒计时
+		function RemainTime() {
+			var iSecond;
+			var sSecond = "", sTime = "";
+			if (iTime >= 0) {
+				iSecond = parseInt(iTime % 300);
+				if (iSecond >= 0) {
+					sSecond = iTime + "秒";
+				}
+				sTime = "<span style='color:darkorange;font-size:13px;'>" + sSecond + "</span>";
+				if (iTime == 0) {
+					clearTimeout(Account);
+					sTime = "<span style='color:red;font-size:12px;'>验证码已过期</span>";
+				}else {
+					Account = setTimeout("RemainTime()", 1000);
+				}
+				iTime = iTime - 1;
+			}
+			$("#endtime").html(sTime);
+		}
+	
+	
+	
+	
+	
+	
+	
+		$('.tab li').click(function(){
+			$(this).addClass('active').siblings('li').removeClass('active');
+			var val = $('.tab .active').attr('value');
+			$('.'+val).css('display', 'block').siblings('.info').css('display', 'none');
+			$('.login').css({'background-color':'#eee', 'color':'#333'});
+			$('input').val('');
+		});
+		$('.code').click(function(){
+			sendCode($(this));
+		});
+		
+		$('.note').keydown(function(){
+			var val = $('.iphoneCode').val();
+			var vals = $(this).val();
+			if(val && vals.length>0){
+				$('.login').css({'background-color':'#1AAB3C', 'color':'#fff'});
+			}else{
+				$('.login').css({'background-color':'#eee', 'color':'#333'});
+			}
+			
+		});
+		$('.iphoneCode').keydown(function(){
+			var val = $('.note').val();
+			var vals = $(this).val();
+			if(val && vals.length>0){
+				$('.login').css({'background-color':'#1AAB3C', 'color':'#fff'});
+			}else{
+				$('.login').css({'background-color':'#eee', 'color':'#333'});
+			}
+		});
+		$('.notes').keydown(function(){
+			var val = $('.iphoneCodes').val();
+			var vals = $(this).val();
+			if(val && vals.length>0){
+				$('.login').css({'background-color':'#1AAB3C', 'color':'#fff'});
+			}else{
+				$('.login').css({'background-color':'#eee', 'color':'#333'});
+			}
+		});
+		$('.iphoneCodes').keydown(function(){
+			var val = $('.notes').val();
+			var vals = $(this).val();
+			if(val && vals.length>0){
+				$('.login').css({'background-color':'#1AAB3C', 'color':'#fff'});
+			}else{
+				$('.login').css({'background-color':'#eee', 'color':'#333'});
+			}
+		})
+
+
+
+	};
+</script>
+</html>

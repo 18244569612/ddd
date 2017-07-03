@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="../css/aui.css" />
+	<meta charset="utf-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+	<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>title</title>
+    <link rel="stylesheet" type="text/css" href="../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/aui.2.0.css"/>
+      <link rel="stylesheet" href="../css/header_white.css" />
+    <style>
+     body{
+     	height:auto;
+     }
+  
+		/*tab*/
+		.aui-tab-nav{
+		  height:1.25rem;
+		  line-height:1.25rem;
+		 }
+		 .aui-tab-nav li{
+		  height:1.25rem;
+		  line-height:1.25rem;
+		 }
+		 .first-list{
+		  margin-top:0.36rem;
+		  }
+		  
+		  .aui-list-view {
+		   position:relative;
+		  }
+		  .aui-list-view-cell{
+		  border-radius:0.28rem;
+		  }
+		  .aui-content{
+		  margin-bottom:0!important;
+		  margin-top:0.22rem;
+		  }
+		  #lists .changeList{
+		    margin-bottom:0!important;
+		    }
+		   #lists .changeList li{
+		   height:2.56rem;
+		   background-color: #fff;
+		   }
+		  #lists .changeList img{
+		    max-width: 1.94rem!important;
+		    height: 1.94rem!important;
+		    line-height: 1.94rem!important;
+		    border-radius:0!important;
+             }
+		  #lists .changeList span {
+            font-size: 0.48rem;
+            font-weight:700;
+           }
+         #lists .changeList  p {
+		    margin-bottom: 0;
+		    font-size: 0.39rem;
+		    color: #333;
+             }
+      
+         #lists .changeList  .right{
+             font-size: 0.49rem;
+             background-color: #1AAB3C;
+             height: 2.56rem;
+             line-height: 2.56rem;
+             padding:0;
+             color:#fff;
+             text-align:center;
+             float: right;
+          }
+          
+          /*弹框*/
+		#MyDiv{
+			width:8.22rem;
+			text-align:center;
+			border-radius:10px;
+			position:relative;
+			position:fixed;
+			top:5.51rem;
+			left:0.9rem;
+			z-index:2;
+			display:none;
+		}
+		
+		#MyDiv img{
+			width:100%;
+			vertical-align: bottom;
+			box-shadow:0 0 10px #ccc;
+			border-radius: 10px 10px 0 0;
+		}	
+		
+		#MyDiv span{
+			display:inline-block;
+			width:8.22rem;
+			height:1.32rem;
+			background-color: #FF3700;
+			margin-top:-0.3rem;
+			color:#FFFFFF;
+			font-size:0.52rem;
+			font-weight:700;
+			line-height:1.32rem;
+			border-radius: 0 0 10px 10px;
+    		box-shadow: 0 0 10px #ccc;
+		} 
+		.black_overlay{
+			display: none;
+			position: absolute;
+			top: 0%;
+			left: 0%;
+			width: 100%;
+			height: 100%;
+			background-color: black;
+			z-index:1;
+			-moz-opacity: 0.5;
+			opacity:.50;
+			filter: alpha(opacity=50);
+		}
+    </style>
+</head>
+<body>
+		<header id="nav">
+			<a class="aui-pull-left" onclick="closeW()">
+				<span class="aui-iconfont aui-icon-left"></span>
+			</a>
+			<div class="title">地主置换</div>
+	</header>
+	<div class="kongbai"></div>
+	
+	
+	
+
+	<div class="aui-tab aui-tab-dark">
+		<ul class="aui-tab-nav" id="title-tab">
+			<li class="active">可置换</li>
+			<li>全部</li>
+		</ul>
+	</div>
+	<div id="lists">
+		<!--<div class="aui-content clearfix">
+			<ul class="aui-user-view" id="changeList">
+				<li class="aui-user-view-cell aui-img aui-col-xs-9" style="float: left;">
+					<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">
+					<div class="aui-img-body">
+						<span>富硒大米</span>
+						<p class="aui-ellipsis-2">数量：10kg</p>
+					</div>
+				</li>
+				<li class="aui-user-view-cell aui-img aui-col-xs-3" id="right" style="float: right;" onclick="openNewWin('exchangeDetails')">
+					我要换
+				</li>
+			</ul>
+		</div>-->
+	</div>
+	
+	<!--确定弹框-->
+	<div id="fade" class="black_overlay">
+	</div>
+	<div id="MyDiv" class="white_content">
+		<img src="../image/img_success.png" alt="" />
+		<span onclick="CloseDiv('MyDiv','fade')">确定</span>
+	</div>	
+	
+ 	
+ </body>
+   
+</html>
+
+<script type="text/javascript" src="../script/api.js"></script>
+<script type="text/javascript" src="../script/index.js"></script>
+<script type="text/javascript" src="../script/jquery-2.1.3.min.js"></script>
+<script type="text/javascript" src="../script/aui-alert.js"></script>
+<script type="text/javascript" src="../script/aui-tab.js"></script>
+<script type="text/javascript" src="../script/swipe.js"></script>
+<script type="text/javascript" src="../script/common.js"></script>
+<script type="text/javascript">
+	apiready = function(){
+		var userInfor = $api.getStorage('userInfor');
+	    var tab = new auiTab({
+	        element:document.getElementById("title-tab"),
+	        index:1,
+	        repeatClick:false
+	    },function(ret){
+	         $('#title-tab li').eq(ret.index-1).addClass('active').siblings().removeClass('active');
+	    });  
+	    
+	    changeList()
+	    function changeList(){
+	    	api.ajax({
+	            url:BASE_URL+'replace/getReplaceList.html?&user_id='+userInfor.id+'&status=0',
+	            method:'GET'
+            },function(ret,err){
+            	if(ret && ret.stateCode == 1){
+            		var str = "", list = ret.resultList;
+            		for(var i = 0; i < list.length; i++){
+            			str+='<div class="aui-content clearfix">'+
+								'<ul class="aui-user-view changeList" >'+
+									'<li class="aui-user-view-cell aui-img aui-col-xs-9" style="float: left;">'+
+										'<img class="aui-img-object aui-pull-left" src="../image/aui/demo4.png">'+
+										'<div class="aui-img-body">'+
+											'<span>'+list[i].product.title+'</span>'+
+											'<p class="aui-ellipsis-2">数量：'+list[i].amount+list[i].product.unit.unit_name+'</p>'+
+										'</div>'+
+									'</li>'+
+									'<li class="aui-user-view-cell aui-img aui-col-xs-3 right" amount='+list[i].amount+' rId='+list[i].id+'>'+
+										'我要换'+
+									'</li>'+
+								'</ul>'+
+							'</div>'
+            		}
+            		$('#lists').html(str);
+            	}
+            });
+	    }
+	    
+	    $('#lists').on('click', '.right', function(){
+	    	var replace_id = $(this).attr('rId');//置换记录id
+	    	var productId = api.pageParam.productId;//确认置换的商品id
+	    	var amount = api.pageParam.amount;//置换数量
+	    	if(productId && amount){
+	    		api.ajax({
+	                url:BASE_URL+'replace/updateReplace.html?replace_id='+replace_id+'&res_product_id='+productId+'&res_user_id='+userInfor.id+'&res_amount='+amount,
+	                method:'GET'
+                },function(ret,err){
+                	if(ret && ret.stateCode == 1){
+                		ShowDiv('MyDiv','fade');
+                	}
+                });
+                $(this).parent().parent().remove();
+	    	}else{
+	    		var amounts = $(this).attr('amount');
+	    		api.openWin({
+	                name: 'exchangeDetails',
+	                url: 'exchangeDetails.html',
+	                pageParam:{
+	                	replace_id:replace_id,
+	                	amount:amounts
+	                }
+                });
+	    	}
+	    	
+	    })
+		
+	}
+      	function ShowDiv(show_div,bg_div){
+			document.getElementById(show_div).style.display='block';
+			document.getElementById(bg_div).style.display='block' ;
+			var bgdiv = document.getElementById(bg_div);
+			bgdiv.style.width = document.body.scrollWidth;
+			// bgdiv.style.height = $(document).height();
+			$("#"+bg_div).height($(document).height());
+		
+		};
+		//关闭弹出层
+		function CloseDiv(show_div,bg_div){
+			document.getElementById(show_div).style.display='none';
+			document.getElementById(bg_div).style.display='none';
+		};	 
+       
+</script>
+</html>
